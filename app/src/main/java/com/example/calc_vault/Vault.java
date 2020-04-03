@@ -20,4 +20,7 @@ public class Vault extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
     }
+    protected void onClicked(){
+
+    }
 }
