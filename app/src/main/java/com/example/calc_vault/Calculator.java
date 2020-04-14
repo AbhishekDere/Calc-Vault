@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class Calculator extends AppCompatActivity {
 
     Button button0;
     Button button1;
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button button8;
     Button button9;
     Button buttonAdd;
-    Button buttonSubstract;
+    Button buttonSubtract;
     Button buttonMul;
     Button buttonDiv;
     Button buttonClear;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calculator);
 
         //Assigning the number buttons to layout
         initControl();
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 onClearButtonClicked();
             }
         });
-        buttonSubstract.setOnClickListener(new View.OnClickListener() {
+        buttonSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 onOperatorButtonClicked("-");
@@ -209,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAdd = findViewById(R.id.buttonAdd);
         buttonClear = findViewById(R.id.buttonClear);
-        buttonSubstract = findViewById(R.id.buttonSub);
+        buttonSubtract = findViewById(R.id.buttonSub);
         buttonMul = findViewById(R.id.buttonMul);
         buttonDiv = findViewById(R.id.buttonDiv);
         buttonEqual = findViewById(R.id.buttonEqual);
