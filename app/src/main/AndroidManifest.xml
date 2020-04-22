@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Videos"></activity>
-        <activity android:name=".Photos" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".Album"
+            android:label="@string/title_activity_albums"/>
         <activity android:name=".Vault" />
         <activity android:name=".Calculator">
             <intent-filter>
