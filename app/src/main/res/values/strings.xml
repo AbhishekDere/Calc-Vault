@@ -17,4 +17,13 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="number_of_songs">Number of Songs</string>
+    <string name="options">Options</string>
+    <string name="album_art_cover">Album Art Cover</string>
+    <string name="delete">Permanently Delete</string>
+    <string name="flaunt">Un-hide</string>
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSIC</string>
+    <string name="backdrop_subtitle">This season top 20 albums</string>
 </resources>

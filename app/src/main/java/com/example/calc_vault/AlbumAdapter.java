@@ -44,7 +44,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView;
+        public ImageView imageView;
         TextView textView;
         LinearLayout linearLayout;
         MyViewHolder(@NonNull View itemView) {

@@ -11,9 +11,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-        <activity android:name=".Album"
-            android:label="@string/title_activity_albums"/>
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".Album"
+            android:label="@string/title_activity_albums" />
         <activity android:name=".Vault" />
         <activity android:name=".Calculator">
             <intent-filter>

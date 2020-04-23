@@ -18,6 +18,7 @@ public class Vault extends AppCompatActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         setContentView(R.layout.activity_vault);
+        super.onCreate(savedInstanceState);
         //Setting the Buttons
         ImageView button_photo = findViewById(R.id.imageView);
         ImageView button_videos = findViewById(R.id.imageView2);
@@ -33,7 +34,13 @@ public class Vault extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        super.onCreate(savedInstanceState);
+        /*button_audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });*/
     }
 
     @Override
