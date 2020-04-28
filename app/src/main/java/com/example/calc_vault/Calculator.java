@@ -2,33 +2,41 @@ package com.example.calc_vault;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 public class Calculator extends AppCompatActivity {
 
-    Button button0;
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
-    Button button7;
-    Button button8;
-    Button button9;
-    Button buttonAdd;
-    Button buttonSubtract;
-    Button buttonMul;
-    Button buttonDiv;
-    Button buttonClear;
-    Button buttonEqual;
-    String result;
-    String tmp;
-    String operator;
-    TextView resultTextView;
+    TextView button0;
+    TextView button1;
+    TextView button2;
+    TextView button3;
+    TextView button4;
+    TextView button5;
+    TextView button6;
+    TextView button7;
+    TextView button8;
+    TextView button9;
+    TextView tvDot;
+
+    TextView buttonAdd;
+    TextView buttonSub;
+    TextView buttonMul;
+    TextView buttonDiv;
+    TextView tvOpen;
+    TextView tvClose;
+
+    TextView tvEqual;
+    TextView buttonClear;
+    TextView tvResult;
+    TextView tvExpression;
+    ImageView tvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,182 +45,198 @@ public class Calculator extends AppCompatActivity {
 
         //Assigning the number buttons to layout
         initControl();
+
         //Setting onClickListeners
         initControlListener();
     }
 
     private void initControlListener() {
+        //Numbers
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("0");
+                appendOnExpression("0",true);
             }
         });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("1");
+                appendOnExpression("1",true);
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("2");
+                appendOnExpression("2",true);
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("3");
+                appendOnExpression("3",true);
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("4");
+                appendOnExpression("4",true);
             }
         });
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("5");
+                appendOnExpression("5",true);
             }
         });
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("6");
+                appendOnExpression("6",true);
             }
         });
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("7");
+                appendOnExpression("7",true);
             }
         });
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("8");
+                appendOnExpression("8",true);
             }
         });
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNumberButtonClicked("9");
+                appendOnExpression("9",true);
             }
         });
-
-        buttonClear.setOnClickListener(new View.OnClickListener() {
+        tvDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClearButtonClicked();
+                appendOnExpression(".",true);
             }
         });
-        buttonSubtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                onOperatorButtonClicked("-");
-            }
-        });
+        //Operators
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onOperatorButtonClicked("+");
+                appendOnExpression("+",false);
+            }
+        });
+        buttonSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appendOnExpression("-",false);
             }
         });
         buttonMul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onOperatorButtonClicked("X");
+                appendOnExpression("*",false);
             }
         });
         buttonDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onOperatorButtonClicked("/");
+                appendOnExpression("/",false);
             }
         });
-        buttonEqual.setOnClickListener(new View.OnClickListener() {
+        tvOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEqualButtonClicked();
+                appendOnExpression("(",false);
             }
         });
+        tvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appendOnExpression(")",false);
+            }
+        });
+
+        //Equal Function
+        tvEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txt = tvExpression.getText().toString();
+                if(txt.equals("0/123")){
+                    Intent intent= new Intent (getApplicationContext(),Vault.class);
+                    startActivity(intent);
+                }
+                else{
+                    try {
+                        Expression expression = new ExpressionBuilder(txt).build();
+                        double result = expression.evaluate();
+                        tvResult.setText(String.valueOf(result));
+                    } catch (Exception e){
+                        Log.d("Exception","Error");
+                    }
+                }
+
+            }
+        });
+
+        //Additional
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvExpression.setText("");
+            }
+        });
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String val =tvExpression.getText().toString();
+                int length=tvExpression.length();
+                if(length>0){
+                tvExpression.setText(val.substring(0,length-1));}
+                tvResult.setText("");
+            }
+        });
+
+
+
     }
 
-    private void onEqualButtonClicked() {
-        int res = 0;
-        try {
-            int number = Integer.parseInt(tmp);
-            int number2 = Integer.parseInt(resultTextView.getText().toString());
-            switch (operator) {
-                case "+":
-                    res = number + number2;
-                    break;
-                case "/":
-                    res = number / number2;
-                    break;
-                case "-":
-                    res = number - number2;
-                    break;
-                case "X":
-                    res = number * number2;
-                    break;
-            }
-            result = String.valueOf(res);
-            if (result.equals("60"))
-        {
-                Intent intent = new Intent(this,Vault.class);
-                startActivity(intent);
-            }
-            else{
-                resultTextView.setText(result);
-            }
-
+    private void appendOnExpression(String value, Boolean canClear){
+        if (tvResult.getText()!=null){
+            tvResult.setText("");
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        if(canClear){
+            tvResult.setText("");
+            tvExpression.append(value);
         }
-    }
-
-    private void onOperatorButtonClicked(String operator) {
-        tmp = resultTextView.getText().toString();
-        onClearButtonClicked();
-        this.operator = operator;
-    }
-
-    private void onClearButtonClicked() {
-        result = "";
-        resultTextView.setText("");
-    }
-
-    private void onNumberButtonClicked(String pos)
-    {
-        result = resultTextView.getText().toString();
-        result = result + pos;
-        resultTextView.setText(result);
+        else{
+            tvExpression.append(tvResult.getText());
+            tvExpression.append(value);
+            tvResult.setText("");
+        }
     }
 
     private void initControl() {
-        button0 = findViewById(R.id.button0);
-        button1 = findViewById(R.id.button1);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
-        button4 = findViewById(R.id.button4);
-        button5 = findViewById(R.id.button5);
-        button6 = findViewById(R.id.button6);
-        button7 = findViewById(R.id.button7);
-        button8 = findViewById(R.id.button8);
-        button9 = findViewById(R.id.button9);
-
-        buttonAdd = findViewById(R.id.buttonAdd);
-        buttonClear = findViewById(R.id.buttonClear);
-        buttonSubtract = findViewById(R.id.buttonSub);
-        buttonMul = findViewById(R.id.buttonMul);
-        buttonDiv = findViewById(R.id.buttonDiv);
-        buttonEqual = findViewById(R.id.buttonEqual);
-
-        resultTextView = findViewById(R.id.text_view_result);
+        button0 = findViewById(R.id.tvZero);
+        button1 = findViewById(R.id.tvOne);
+        button2 = findViewById(R.id.tvTwo);
+        button3 = findViewById(R.id.tvThree);
+        button4 = findViewById(R.id.tvFour);
+        button5 = findViewById(R.id.tvFive);
+        button6 = findViewById(R.id.tvSix);
+        button7 = findViewById(R.id.tvSeven);
+        button8 = findViewById(R.id.tvEight);
+        button9 = findViewById(R.id.tvNine);
+        tvDot= findViewById(R.id.tvDot);
+        buttonAdd = findViewById(R.id.tvPlus);
+        buttonSub = findViewById(R.id.tvMinus);
+        buttonMul = findViewById(R.id.tvMul);
+        buttonDiv = findViewById(R.id.tvDivide);
+        tvOpen = findViewById(R.id.tvOpen);
+        tvClose = findViewById(R.id.tvClose);
+        tvEqual = findViewById(R.id.tvEquals);
+        buttonClear = findViewById(R.id.tvClear);
+        tvExpression = findViewById(R.id.tvExpression);
+        tvResult = findViewById(R.id.tvResult);
+        tvBack =  findViewById(R.id.tvBack);
     }
 }

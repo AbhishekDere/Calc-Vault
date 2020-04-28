@@ -44,14 +44,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
-        public ImageView imageView;
+        ImageView imageView;
         TextView textView;
         LinearLayout linearLayout;
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linearLayout = itemView.findViewById(R.id.photo_id);
             imageView = itemView.findViewById(R.id.album_image);
-            textView = itemView.findViewById(R.id.album_detail);
+            textView = itemView.findViewById(R.id.album_name);
 
         }
     }

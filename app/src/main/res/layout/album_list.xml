@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/album" />
 
     <TextView
-        android:id="@+id/album_detail"
+        android:id="@+id/album_name"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:foregroundGravity="center"

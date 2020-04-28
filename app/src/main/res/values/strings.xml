@@ -26,4 +26,14 @@
     <string name="action_play_next">Play Next</string>
     <string name="backdrop_title">LOVE MUSIC</string>
     <string name="backdrop_subtitle">This season top 20 albums</string>
+    <string name="refresh">refresh</string>
+    <string name="photos">Photos</string>
+    <string name="videos">Videos</string>
+    <string name="music">Music</string>
+    <string name="recordings">Recordings</string>
+    <string name="vpn">VPN</string>
+    <string name="notes">Notes</string>
+    <string name="documents">Documents</string>
+    <string name="drive">GDrive</string>
+    <string name="settings">Settings</string>
 </resources>
