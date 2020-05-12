@@ -14,27 +14,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class Calculator extends AppCompatActivity {
 
-    TextView button0;
-    TextView button1;
-    TextView button2;
-    TextView button3;
-    TextView button4;
-    TextView button5;
-    TextView button6;
-    TextView button7;
-    TextView button8;
-    TextView button9;
-    TextView tvDot;
-    TextView buttonAdd;
-    TextView buttonSub;
-    TextView buttonMul;
-    TextView buttonDiv;
-    TextView tvOpen;
-    TextView tvClose;
-    TextView tvEqual;
-    TextView buttonClear;
-    TextView tvResult;
-    TextView tvExpression;
+    TextView button0,button1, button2, button3, button4, button5, button6, button7, button8, button9, tvDot, buttonAdd,
+            buttonSub, buttonMul, buttonDiv, tvOpen, tvClose, tvEqual, buttonClear, tvResult, tvExpression;
     ImageView tvBack;
 
     @Override

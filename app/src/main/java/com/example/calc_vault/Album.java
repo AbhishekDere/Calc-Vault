@@ -18,9 +18,6 @@ import java.io.File;
 
 public class Album extends AppCompatActivity {
 
-   // String imageEncoded;
-    //<String> imagesEncodedList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +38,9 @@ public class Album extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==(R.id.AddNew)){
-
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Create New Album");
             alert.setMessage("Enter Your Album Name");
-
-// Set an EditText view to get user input
             final EditText input = new EditText(this);
             alert.setView(input);
 
