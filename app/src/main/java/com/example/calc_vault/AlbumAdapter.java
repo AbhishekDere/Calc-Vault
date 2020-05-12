@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder> {
@@ -15,8 +15,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     AlbumAdapter(String[] string){
         this.data=string;
     }
-
-
 
     @NonNull
     @Override
@@ -28,12 +26,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     //Created a new Custom ViewHolder
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.textView.setText(data[position]);
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
 
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
             }
         });
     }
@@ -46,7 +45,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     static class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
-        LinearLayout linearLayout;
+        LinearLayout linearLayout; 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linearLayout = itemView.findViewById(R.id.photo_id);

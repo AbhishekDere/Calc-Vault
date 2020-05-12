@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColor">#ffffffff</item>
-        <item name="android:background">#000000</item>
+        <item name="android:background">#4A3333</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="ActionButtonStyle">

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import net.objecthunter.exp4j.Expression;
@@ -24,14 +25,12 @@ public class Calculator extends AppCompatActivity {
     TextView button8;
     TextView button9;
     TextView tvDot;
-
     TextView buttonAdd;
     TextView buttonSub;
     TextView buttonMul;
     TextView buttonDiv;
     TextView tvOpen;
     TextView tvClose;
-
     TextView tvEqual;
     TextView buttonClear;
     TextView tvResult;
@@ -183,6 +182,7 @@ public class Calculator extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvExpression.setText("");
+                tvResult.setText("");
             }
         });
         tvBack.setOnClickListener(new View.OnClickListener() {
@@ -195,9 +195,6 @@ public class Calculator extends AppCompatActivity {
                 tvResult.setText("");
             }
         });
-
-
-
     }
 
     private void appendOnExpression(String value, Boolean canClear){

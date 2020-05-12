@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
@@ -12,7 +11,7 @@
         android:ellipsize="start"
         android:gravity="end"
         android:singleLine="true"
-        android:textColor="@color/numberButton"
+        android:textColor="@color/colorPrimary"
         android:textSize="40sp" />
 
     <TextView
@@ -22,7 +21,7 @@
         android:ellipsize="end"
         android:gravity="end"
         android:singleLine="true"
-        android:textColor="@color/numberButton"
+        android:textColor="@color/viewBg"
         android:textSize="30sp" />
 
     <LinearLayout
@@ -39,22 +38,22 @@
             <TextView
                 android:id="@+id/tvClear"
                 style="@style/ActionButtonStyle"
-                android:text="CE" />
+                android:text="@string/ce" />
 
             <TextView
                 android:id="@+id/tvOpen"
                 style="@style/ActionButtonStyle"
-                android:text="(" />
+                android:text="@string/open" />
 
             <TextView
                 android:id="@+id/tvClose"
                 style="@style/ActionButtonStyle"
-                android:text=")" />
+                android:text="@string/close" />
 
             <TextView
                 android:id="@+id/tvDivide"
                 style="@style/ActionButtonStyle"
-                android:text="/" />
+                android:text="@string/divide" />
 
 
         </LinearLayout>
@@ -68,22 +67,22 @@
             <TextView
                 android:id="@+id/tvSeven"
                 style="@style/NumberButtonStyle"
-                android:text="7" />
+                android:text="@string/_7" />
 
             <TextView
                 android:id="@+id/tvEight"
                 style="@style/NumberButtonStyle"
-                android:text="8" />
+                android:text="@string/_8" />
 
             <TextView
                 android:id="@+id/tvNine"
                 style="@style/NumberButtonStyle"
-                android:text="9" />
+                android:text="@string/_9" />
 
             <TextView
                 android:id="@+id/tvMul"
                 style="@style/ActionButtonStyle"
-                android:text="*" />
+                android:text="@string/mul" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,22 +95,22 @@
             <TextView
                 android:id="@+id/tvFour"
                 style="@style/NumberButtonStyle"
-                android:text="4" />
+                android:text="@string/_4" />
 
             <TextView
                 android:id="@+id/tvFive"
                 style="@style/NumberButtonStyle"
-                android:text="5" />
+                android:text="@string/_5" />
 
             <TextView
                 android:id="@+id/tvSix"
                 style="@style/NumberButtonStyle"
-                android:text="6" />
+                android:text="@string/_6" />
 
             <TextView
                 android:id="@+id/tvMinus"
                 style="@style/ActionButtonStyle"
-                android:text="-" />
+                android:text="@string/minus" />
 
         </LinearLayout>
 
@@ -125,22 +124,22 @@
             <TextView
                 android:id="@+id/tvOne"
                 style="@style/NumberButtonStyle"
-                android:text="1" />
+                android:text="@string/_1" />
 
             <TextView
                 android:id="@+id/tvTwo"
                 style="@style/NumberButtonStyle"
-                android:text="2" />
+                android:text="@string/_2" />
 
             <TextView
                 android:id="@+id/tvThree"
                 style="@style/NumberButtonStyle"
-                android:text="3" />
+                android:text="@string/_3" />
 
             <TextView
                 android:id="@+id/tvPlus"
                 style="@style/ActionButtonStyle"
-                android:text="+" />
+                android:text="@string/plus" />
 
         </LinearLayout>
 
@@ -153,23 +152,24 @@
             <TextView
                 android:id="@+id/tvDot"
                 style="@style/NumberButtonStyle"
-                android:text="." />
+                android:text="@string/dot" />
 
             <TextView
                 android:id="@+id/tvZero"
                 style="@style/NumberButtonStyle"
-                android:text="0" />
+                android:text="@string/_0" />
 
             <ImageView
                 android:id="@+id/tvBack"
                 style="@style/NumberButtonStyle"
                 android:scaleType="center"
+                android:contentDescription="@string/backspace"
                 android:src="@drawable/backspace" />
 
             <TextView
                 android:id="@+id/tvEquals"
                 style="@style/ActionButtonStyle"
-                android:text="=" />
+                android:text="@string/equal" />
 
         </LinearLayout>
 

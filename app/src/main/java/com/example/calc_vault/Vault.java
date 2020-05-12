@@ -1,21 +1,25 @@
 package com.example.calc_vault;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import java.util.Set;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class Vault extends AppCompatActivity {
-
     ImageView button_photo,button_videos,button_music,button_recordings,button_VPN,button_notes,button_files,button_drive,button_settings;
-
+    private int STORAGE_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -23,6 +27,48 @@ public class Vault extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initControl();
         initControlListener();
+        if (ContextCompat.checkSelfPermission(Vault.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(Vault.this, "You have already granted this permission!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            requestStoragePermission();
+        }
+    }
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed to Display Your Files")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(Vault.this,
+                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void initControl(){
@@ -54,6 +100,7 @@ public class Vault extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(),Album.class);
                     startActivity(intent);
+
                 }
             });
             button_music.setOnClickListener(new View.OnClickListener() {
