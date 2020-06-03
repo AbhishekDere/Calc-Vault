@@ -7,8 +7,10 @@
 
     <EditText
         android:id="@+id/edit_rename"
+        android:autofillHints="@string/name"
+        android:hint="@string/rename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Rename" />
+        android:inputType="text" />
 
 </RelativeLayout>

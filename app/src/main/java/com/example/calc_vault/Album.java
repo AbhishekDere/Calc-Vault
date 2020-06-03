@@ -2,7 +2,7 @@ package com.example.calc_vault;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+
 
 public class Album extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class Album extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(albumAdapter);
     }
+
+
+    //Option Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_album,menu);
@@ -48,14 +52,26 @@ public class Album extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String value = String.valueOf(input.getText());
                     // Do something with value!
-                    File direct = new File(Environment.getExternalStorageDirectory()+File.separator+value+"/");
-                    if(!direct.exists())
-                    {
-                        if(direct.mkdir())
+                    File file= new File(getExternalFilesDir("/")+File.separator+value);
+                    try{
+                        if(!file.exists())
                         {
-                            Toast.makeText(Album.this,"Folder Album Created Succesfully",Toast.LENGTH_SHORT).show();
+                            if(file.mkdirs())
+                            {
+                                Toast.makeText(Album.this,"Folder Album Created Successfully",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(Album.this,"Not Created",Toast.LENGTH_LONG).show();
+                            }
                         }
-
+                        else if(file.exists()){
+                            Toast.makeText(Album.this,"Folder Exists",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (NullPointerException e) {
+                        // Unable to create file, likely because external storage is
+                        // not currently mounted.
+                        Log.w("ExternalStorage", "Error writing " + file, e);
                     }
                 }
             });

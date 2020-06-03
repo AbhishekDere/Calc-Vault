@@ -58,4 +58,6 @@
     <string name="backspace">backspace</string>
     <string name="select">Select</string>
     <string name="create_new_folder">Create New Folder</string>
+    <string name="name">Name</string>
+    <string name="rename">Rename</string>
 </resources>
