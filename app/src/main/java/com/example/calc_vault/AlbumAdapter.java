@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder> {
-    private String[] data;
-    AlbumAdapter(String[] string){
+    ArrayList<String> data;
+    AlbumAdapter(ArrayList<String> string){
         this.data=string;
     }
 
@@ -27,7 +29,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.textView.setText(data[position]);
+        holder.textView.setText(data.get(position));
         holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
@@ -39,7 +41,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{

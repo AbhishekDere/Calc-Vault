@@ -2,36 +2,51 @@ package com.example.calc_vault;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 
 public class Album extends AppCompatActivity {
-
+    File path = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"Abhi");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-        String[] albums ={"Album 1"};
-        RecyclerView recyclerView= findViewById(R.id.recycler_id);
-        AlbumAdapter albumAdapter = new AlbumAdapter(albums);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(albumAdapter);
+        try{
+            if (path.exists()){
+                ArrayList<String> albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+                RecyclerView recyclerView= findViewById(R.id.recycler_id);
+                AlbumAdapter albumAdapter = new AlbumAdapter(albums);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(albumAdapter);
+            }
+            else if(!path.exists()){
+                if(path.mkdirs())
+                {
+                    Toast.makeText(Album.this,"Secret Vault Created",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }catch(NullPointerException e){
+            Toast toast=Toast.makeText(this,"BLA BLA BLA",Toast.LENGTH_SHORT);
+        }
+
+
     }
-
-
     //Option Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +67,7 @@ public class Album extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String value = String.valueOf(input.getText());
                     // Do something with value!
-                    File file= new File(getExternalFilesDir("/")+File.separator+value);
+                    File file= new File(path+File.separator+value);
                     try{
                         if(!file.exists())
                         {
