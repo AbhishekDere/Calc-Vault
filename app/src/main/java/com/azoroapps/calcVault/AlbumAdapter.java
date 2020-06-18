@@ -1,4 +1,4 @@
-package com.example.calc_vault;
+package com.azoroapps.calcVault;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;

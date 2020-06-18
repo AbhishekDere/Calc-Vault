@@ -1,4 +1,4 @@
-package com.example.calc_vault;
+package com.azoroapps.calcVault;
 
 import android.os.Bundle;
 

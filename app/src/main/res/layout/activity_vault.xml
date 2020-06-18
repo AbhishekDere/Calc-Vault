@@ -1,199 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20sp">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivPhotos"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/album" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20sp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivVideos"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_video_library_blue_24dp" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/album" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivMusic"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_library_music_blue_24dp" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivVideos"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_video_library_blue_24dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_library_music_blue_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="40sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/photos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/videos" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/music" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="40sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivRecordings"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_recordings" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivVPN"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_vpn_lock_black_24dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_notes" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="50sp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/recordings" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/vpn" />
+
+            <TextView
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="1sp"
+                android:text="@string/notes" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="40sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDocuments"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_notes" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDrive"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_drive" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="114dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:srcCompat="@drawable/settings" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20sp">
+
+            <TextView
+                android:layout_width="49dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/documents" />
+
+            <TextView
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/drive" />
+
+            <TextView
+                android:layout_width="49dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/settings" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="40sp">
+</androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/photos" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/videos" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/music" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="40sp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivRecordings"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_recordings" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivVPN"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_vpn_lock_black_24dp" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivNotes"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_notes" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="50sp">
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/recordings" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/vpn" />
-
-        <TextView
-            android:layout_width="59dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="1sp"
-            android:text="@string/notes" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="40sp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivDocuments"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_notes" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivDrive"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/ic_drive" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="114dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            app:srcCompat="@drawable/settings" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="20sp">
-
-        <TextView
-            android:layout_width="49dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/documents" />
-
-        <TextView
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/drive" />
-
-        <TextView
-            android:layout_width="49dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/settings" />
-
-    </LinearLayout>
-
-</LinearLayout>

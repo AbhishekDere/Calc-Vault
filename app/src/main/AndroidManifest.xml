@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.calc_vault">
+    package="com.azoroapps.calcVault"
+    android:installLocation="preferExternal">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VpnList"></activity>
+        <activity android:name="com.azoroapps.calcVault.VpnList" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.azoroapps.calcVault.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".Vault" />
+            android:parentActivityName="com.azoroapps.calcVault.Vault" />
         <activity
-            android:name=".Album"
+            android:name="com.azoroapps.calcVault.Album"
             android:label="@string/title_activity_albums" />
-        <activity android:name=".Vault" />
-        <activity android:name=".Calculator">
+        <activity android:name="com.azoroapps.calcVault.Vault" />
+        <activity android:name="com.azoroapps.calcVault.Calculator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.calc_vault;
+package com.azoroapps.calcVault;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,31 +20,38 @@ import java.util.Objects;
 
 
 public class Album extends AppCompatActivity {
-    File path = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"Abhi");
+    ArrayList<String> albums;
+    RecyclerView recyclerView;
+    AlbumAdapter albumAdapter;
+    File path = new File(Environment.getExternalStorageDirectory()+"/.Vault");
+    boolean success = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+
         try{
             if (path.exists()){
-                ArrayList<String> albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-                RecyclerView recyclerView= findViewById(R.id.recycler_id);
-                AlbumAdapter albumAdapter = new AlbumAdapter(albums);
+                albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+                albumAdapter = new AlbumAdapter(albums);
+                recyclerView= findViewById(R.id.recycler_id);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setAdapter(albumAdapter);
             }
             else if(!path.exists()){
-                if(path.mkdirs())
+                success = path.mkdirs();
+                if(success)
                 {
                     Toast.makeText(Album.this,"Secret Vault Created",Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    Toast.makeText(Album.this,"Vault not Created",Toast.LENGTH_SHORT).show();
+                }
             }
         }catch(NullPointerException e){
-            Toast toast=Toast.makeText(this,"BLA BLA BLA",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"BLA BLA BLA",Toast.LENGTH_SHORT).show();
         }
-
 
     }
     //Option Menu
@@ -65,9 +72,9 @@ public class Album extends AppCompatActivity {
 
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = String.valueOf(input.getText());
+                    String value = String.valueOf(input.getText().append("/"));
                     // Do something with value!
-                    File file= new File(path+File.separator+value);
+                    File file= new File(path+value);
                     try{
                         if(!file.exists())
                         {
