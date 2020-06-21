@@ -1,5 +1,6 @@
 package com.azoroapps.calcVault;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.textView.setText(data.get(position));
-        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                return false;
+            public void onClick(View v) {
+                Intent intent = new Intent();
             }
         });
     }

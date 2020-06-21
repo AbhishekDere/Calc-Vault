@@ -60,4 +60,5 @@
     <string name="create_new_folder">Create New Folder</string>
     <string name="name">Name</string>
     <string name="rename">Rename</string>
+    <string name="add_new_photos">Add new Photos</string>
 </resources>

@@ -18,19 +18,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class Album extends AppCompatActivity {
     ArrayList<String> albums;
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
-    File path = new File(Environment.getExternalStorageDirectory()+"/.Vault");
-    boolean success = true;
+    File path = new File(Environment.getExternalStorageDirectory()+"/Vault");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-
-        try{
             if (path.exists()){
                 albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
                 albumAdapter = new AlbumAdapter(albums);
@@ -39,20 +38,6 @@ public class Album extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setAdapter(albumAdapter);
             }
-            else if(!path.exists()){
-                success = path.mkdirs();
-                if(success)
-                {
-                    Toast.makeText(Album.this,"Secret Vault Created",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(Album.this,"Vault not Created",Toast.LENGTH_SHORT).show();
-                }
-            }
-        }catch(NullPointerException e){
-            Toast.makeText(this,"BLA BLA BLA",Toast.LENGTH_SHORT).show();
-        }
-
     }
     //Option Menu
     @Override
@@ -72,22 +57,22 @@ public class Album extends AppCompatActivity {
 
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = String.valueOf(input.getText().append("/"));
-                    // Do something with value!
-                    File file= new File(path+value);
+                    boolean b;
+                    String value = String.valueOf(input.getText());
+                    File file= new File(path+"/"+value);
                     try{
                         if(!file.exists())
                         {
-                            if(file.mkdirs())
-                            {
-                                Toast.makeText(Album.this,"Folder Album Created Successfully",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(Album.this,"Not Created",Toast.LENGTH_LONG).show();
-                            }
+                                b = file.mkdirs();
+                                if(b){
+                                    Toasty.success(Album.this,"Folder Album Created Successfully",Toast.LENGTH_SHORT).show();
+                                }
                         }
                         else if(file.exists()){
-                            Toast.makeText(Album.this,"Folder Exists",Toast.LENGTH_SHORT).show();
+                            Toasty.info(Album.this,"Album Exists, Try Different Name",Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toasty.info(Album.this,"Not Created",Toast.LENGTH_LONG).show();
                         }
                     }
                     catch (NullPointerException e) {
@@ -113,5 +98,4 @@ public class Album extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

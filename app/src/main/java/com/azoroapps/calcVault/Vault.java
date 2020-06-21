@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.File;
+
+import es.dmoral.toasty.Toasty;
+
 public class Vault extends AppCompatActivity {
     ImageView button_photo,button_videos,button_music,button_recordings,button_VPN,button_notes,button_files,button_drive,button_settings;
     private int STORAGE_PERMISSION_CODE = 1;
-
+    boolean success=true;
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         setContentView(R.layout.activity_vault);
@@ -40,9 +45,9 @@ public class Vault extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == STORAGE_PERMISSION_CODE)  {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+                Toasty.info(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+                Toasty.error(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -91,6 +96,19 @@ public class Vault extends AppCompatActivity {
             button_photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String loc = "Vault";
+                    File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
+
+                    if (file.exists()){
+                        Toasty.info(Vault.this,"Loading your Albums",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        success=file.mkdirs();
+                        if(success){
+                            Toasty.info(Vault.this,"Vault Created",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
                     Intent intent = new Intent(getApplicationContext(),Album.class);
                     startActivity(intent);
                 }
@@ -158,7 +176,7 @@ public class Vault extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.vaultmenu,menu);
+        getMenuInflater().inflate(R.menu.menu_vault,menu);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -33,6 +33,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28'
     //RecyclerView
     implementation 'com.android.support:recyclerview-v7:28'
+    //Toasty
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
     implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
