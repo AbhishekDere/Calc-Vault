@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.io.File;
+
+import es.dmoral.toasty.Toasty;
 
 public class Calculator extends AppCompatActivity {
 
@@ -23,6 +26,8 @@ public class Calculator extends AppCompatActivity {
     ImageView tvBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Toasty.Config.reset();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 

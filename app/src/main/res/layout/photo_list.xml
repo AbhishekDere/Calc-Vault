@@ -5,8 +5,8 @@
     android:id="@+id/album_id"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:ignore="UseCompoundDrawables"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="UseCompoundDrawables">
 
 
     <ImageView
@@ -15,12 +15,5 @@
         android:layout_height="158dp"
         android:contentDescription="@string/album_description"
         app:srcCompat="@drawable/album" />
-    <TextView
-        android:id="@+id/album_name"
 
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="@string/album_description" />
 </LinearLayout>

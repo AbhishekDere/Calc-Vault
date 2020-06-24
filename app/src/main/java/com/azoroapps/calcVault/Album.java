@@ -1,5 +1,6 @@
 package com.azoroapps.calcVault;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
@@ -25,19 +27,23 @@ public class Album extends AppCompatActivity {
     ArrayList<String> albums;
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
+    Context context;
     File path = new File(Environment.getExternalStorageDirectory()+"/Vault");
+
+    private void listingAlbums(){
+        albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+        albumAdapter = new AlbumAdapter(this,albums);
+        recyclerView= findViewById(R.id.recycler_id);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setAdapter(albumAdapter);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-            if (path.exists()){
-                albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-                albumAdapter = new AlbumAdapter(albums);
-                recyclerView= findViewById(R.id.recycler_id);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                recyclerView.setAdapter(albumAdapter);
-            }
+                listingAlbums();
     }
     //Option Menu
     @Override
@@ -74,6 +80,8 @@ public class Album extends AppCompatActivity {
                         else{
                             Toasty.info(Album.this,"Not Created",Toast.LENGTH_LONG).show();
                         }
+                        listingAlbums();
+
                     }
                     catch (NullPointerException e) {
                         // Unable to create file, likely because external storage is
@@ -98,4 +106,5 @@ public class Album extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

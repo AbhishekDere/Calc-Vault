@@ -34,13 +34,18 @@ public class Vault extends AppCompatActivity {
         initControlListener();
         if (ContextCompat.checkSelfPermission(Vault.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(Vault.this, "You have already granted this permission!",
-                    Toast.LENGTH_SHORT).show();
+           Toasty.success(Vault.this, "Authorised",Toast.LENGTH_SHORT).show();
+            String loc = "Vault";
+            File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
+                success=file.mkdirs();
+                if(success){
+                    Toasty.info(Vault.this,"Vault Created",Toast.LENGTH_SHORT).show();
+                }
+
         } else {
             requestStoragePermission();
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == STORAGE_PERMISSION_CODE)  {
@@ -51,7 +56,6 @@ public class Vault extends AppCompatActivity {
             }
         }
     }
-
     private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -96,19 +100,7 @@ public class Vault extends AppCompatActivity {
             button_photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String loc = "Vault";
-                    File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
 
-                    if (file.exists()){
-                        Toasty.info(Vault.this,"Loading your Albums",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        success=file.mkdirs();
-                        if(success){
-                            Toasty.info(Vault.this,"Vault Created",Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
                     Intent intent = new Intent(getApplicationContext(),Album.class);
                     startActivity(intent);
                 }
