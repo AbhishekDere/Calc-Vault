@@ -1,6 +1,5 @@
 package com.azoroapps.calcVault;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,26 +12,35 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
 
 public class Album extends AppCompatActivity {
-    ArrayList<String> albums;
+    ArrayList<String> mNames;
+    ArrayList<String> mImageUrls;
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
-    Context context;
     File path = new File(Environment.getExternalStorageDirectory()+"/Vault");
+    String[] directories = path.list(new FilenameFilter() {
+        @Override
+        public boolean accept(File current, String name) {
+            return new File(current, name).isDirectory();
+        }
+    });
+
 
     private void listingAlbums(){
-        albums = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-        albumAdapter = new AlbumAdapter(this,albums);
+
+        mNames = new ArrayList<String>(Arrays.asList(directories));
+       //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+
+        albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
         recyclerView= findViewById(R.id.recycler_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -43,7 +51,9 @@ public class Album extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-                listingAlbums();
+
+        listingAlbums();
+
     }
     //Option Menu
     @Override

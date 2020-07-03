@@ -1,29 +1,27 @@
 package com.azoroapps.calcVault;
 import android.content.Intent;
 import android.content.Context;
-
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import java.io.File;
 import java.util.ArrayList;
-
 import es.dmoral.toasty.Toasty;
-
-
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder> {
-    ArrayList<String> data;
+    ArrayList<String> albumNames;
+    ArrayList<String> albumPhotos;
     Context context;
 
-    AlbumAdapter(Context context, ArrayList<String> data){
-        this.data=data;
+    AlbumAdapter(Context context, ArrayList<String> data,ArrayList<String> albumPhotos){
+        this.albumNames=data;
         this.context=  context;
+        this.albumPhotos=albumPhotos;
     }
 
     @Override
@@ -33,16 +31,18 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
         View view=layoutInflater.inflate(R.layout.album_list, parent,false);
         return new MyViewHolder(view);
     }
-    //Created a new Custom ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.textView.setText(data.get(position));
-        final String albumName =data.get(position);
+        final String albumName =albumNames.get(position);
+        File photoPath = new File(Environment.getExternalStorageDirectory()+"/"+albumName);
+        ArrayList<String> fileName = new ArrayList<>();
+        holder.textView.setText(albumNames.get(position));
+
+        //holder.imageView.setImageResource());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(context,Photos.class);
                 intent.putExtra("AlbumName",albumName);
                 context.startActivity(intent);
@@ -60,15 +60,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
         });
     }
 
-    @Override
+        @Override
     public int getItemCount() {
-        return data.size();
+        return albumNames.size();
     }
 
      static class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
-        LinearLayout linearLayout; 
+        LinearLayout linearLayout;
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linearLayout = itemView.findViewById(R.id.album_id);

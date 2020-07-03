@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/NormalLight"
         >
-        <activity android:name=".Photos"></activity>
+        <activity android:name=".Photos" />
         <activity android:name=".VpnList" />
         <activity
             android:name=".SettingsActivity"
