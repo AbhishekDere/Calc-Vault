@@ -20,6 +20,7 @@ import java.util.Objects;
 
 
 public class Photos extends AppCompatActivity {
+    //private int PICK_IMAGE_MULTIPLE=1;
     ArrayList<ImageDetails> photoNames;
     RecyclerView recyclerView;
     PhotosAdapter photosAdapter;
@@ -42,16 +43,6 @@ public class Photos extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(photosAdapter);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_photos,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
     private ArrayList<ImageDetails> getData(){
 
         ArrayList<ImageDetails> img = new ArrayList<>();
@@ -64,8 +55,26 @@ public class Photos extends AppCompatActivity {
                 imageDetails.setName(file.getName());
                 imageDetails.setUri(Uri.fromFile(file));
                 img.add(imageDetails);
-                            }
+            }
         }
         return img;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_photos,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.AddNewPhotos:
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Pictures"), 1);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

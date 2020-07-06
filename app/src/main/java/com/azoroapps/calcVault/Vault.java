@@ -1,7 +1,6 @@
 package com.azoroapps.calcVault;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,25 +24,19 @@ public class Vault extends AppCompatActivity {
     ImageView button_photo,button_videos,button_music,button_recordings,button_VPN,button_notes,button_files,button_drive,button_settings;
     private int STORAGE_PERMISSION_CODE = 1;
     boolean success=true;
+    String loc = "Vault";
+    File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         setContentView(R.layout.activity_vault);
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(Vault.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+          ActivityCompat.requestPermissions(Vault.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+
+        }
         initControl();
         initControlListener();
-        if (ContextCompat.checkSelfPermission(Vault.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-           Toasty.success(Vault.this, "Authorised",Toast.LENGTH_SHORT).show();
-            String loc = "Vault";
-            File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
-                success=file.mkdirs();
-                if(success){
-                    Toasty.info(Vault.this,"Vault Created",Toast.LENGTH_SHORT).show();
-                }
-
-        } else {
-            requestStoragePermission();
-        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -56,7 +48,7 @@ public class Vault extends AppCompatActivity {
             }
         }
     }
-    private void requestStoragePermission() {
+    /*private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)) {
             new AlertDialog.Builder(this)
@@ -80,7 +72,7 @@ public class Vault extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
-    }
+    }*/
     private void initControl(){
         //Row 1
         button_photo = findViewById(R.id.ivPhotos);
@@ -100,7 +92,14 @@ public class Vault extends AppCompatActivity {
             button_photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (ContextCompat.checkSelfPermission(Vault.this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toasty.success(Vault.this, "Authorised",Toast.LENGTH_SHORT).show();
+                        success=file.mkdirs();
+                        if(success){
+                            Toasty.info(Vault.this,"Vault Created",Toast.LENGTH_SHORT).show();
+                        }
+                        //requestStoragePermission();
+                    }
                     Intent intent = new Intent(getApplicationContext(),Album.class);
                     startActivity(intent);
                 }

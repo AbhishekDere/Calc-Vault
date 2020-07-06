@@ -62,4 +62,14 @@
     <string name="rename">Rename</string>
     <string name="add_new_photos">Add new Photos</string>
     <string name="textView">TextView</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome to Calc-Vault!</string>
+    <string name="slide_1_desc"> Calc-Vault is one Stop to Hide Everything you can!</string>
+
+    <string name="slide_2_title">Please Give Permission to Access Your Files</string>
+    <string name="slide_2_desc">We do not Steal/Take your Details Files \n
+    Your Files are Stored in your Own Google Drive and is Encrypted</string>
 </resources>

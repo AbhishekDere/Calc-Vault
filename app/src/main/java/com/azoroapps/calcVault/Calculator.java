@@ -1,6 +1,8 @@
 package com.azoroapps.calcVault;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -20,13 +24,17 @@ import java.io.File;
 import es.dmoral.toasty.Toasty;
 
 public class Calculator extends AppCompatActivity {
-
+    private int STORAGE_PERMISSION_CODE = 1;
     TextView button0,button1, button2, button3, button4, button5, button6, button7, button8, button9, tvDot, buttonAdd,
             buttonSub, buttonMul, buttonDiv, tvOpen, tvClose, tvEqual, buttonClear, tvResult, tvExpression;
     ImageView tvBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
 
+        }
         Toasty.Config.reset();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);

@@ -22,11 +22,13 @@ import es.dmoral.toasty.Toasty;
 
 
 public class Album extends AppCompatActivity {
-    ArrayList<String> mNames;
-    ArrayList<String> mImageUrls;
+    ArrayList<String> mNames = new ArrayList<>();
+    ArrayList<String> mImageUrls= new ArrayList<>();
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
-    File path = new File(Environment.getExternalStorageDirectory()+"/Vault");
+    boolean aBoolean;
+    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault");
+
     String[] directories = path.list(new FilenameFilter() {
         @Override
         public boolean accept(File current, String name) {
@@ -34,26 +36,29 @@ public class Album extends AppCompatActivity {
         }
     });
 
-
     private void listingAlbums(){
+        mNames = new ArrayList<>(Arrays.asList(directories));
+            //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+                if(!mNames.isEmpty()){
+                    albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
+                    recyclerView= findViewById(R.id.recycler_id);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+                    recyclerView.setAdapter(albumAdapter);
 
-        mNames = new ArrayList<String>(Arrays.asList(directories));
-       //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-
-        albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
-        recyclerView= findViewById(R.id.recycler_id);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.setAdapter(albumAdapter);
+                }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-
+        if(!path.exists()) {
+            aBoolean= path.mkdirs();
+            if(aBoolean){
+                Toasty.success(this, "Vault Created", Toasty.LENGTH_SHORT).show();
+            }
+        }
         listingAlbums();
-
     }
     //Option Menu
     @Override
@@ -70,7 +75,6 @@ public class Album extends AppCompatActivity {
             alert.setMessage("Enter Your Album Name");
             final EditText input = new EditText(this);
             alert.setView(input);
-
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     boolean b;
@@ -82,6 +86,11 @@ public class Album extends AppCompatActivity {
                                 b = file.mkdirs();
                                 if(b){
                                     Toasty.success(Album.this,"Folder Album Created Successfully",Toast.LENGTH_SHORT).show();
+                                    startActivity(getIntent());
+                                    finish();
+                                }
+                                else if(!path.exists()){
+                                    Toasty.error(Album.this,"Vault not Found",Toast.LENGTH_SHORT).show();
                                 }
                         }
                         else if(file.exists()){
@@ -90,14 +99,13 @@ public class Album extends AppCompatActivity {
                         else{
                             Toasty.info(Album.this,"Not Created",Toast.LENGTH_LONG).show();
                         }
-                        listingAlbums();
-
                     }
                     catch (NullPointerException e) {
                         // Unable to create file, likely because external storage is
                         // not currently mounted.
                         Log.w("ExternalStorage", "Error writing " + file, e);
                     }
+
                 }
             });
 
@@ -108,11 +116,7 @@ public class Album extends AppCompatActivity {
             });
 
             alert.show();
-          /*  Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_IMAGE_MULTIPLE);*/
+
         }
         return super.onOptionsItemSelected(item);
     }
