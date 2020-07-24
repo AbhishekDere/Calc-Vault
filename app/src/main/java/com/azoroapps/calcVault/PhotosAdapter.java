@@ -6,11 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
     //ArrayList<String> imageNames;
@@ -36,7 +40,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
         ImageDetails obj = images.get(position);
         Picasso.with(context).load(obj.getUri()).placeholder(R.drawable.placeholder).fit().into(holder.imageView);
-        //holder.imageView.setImageResource(R.drawable.);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toasty.success(context,"null",Toasty.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

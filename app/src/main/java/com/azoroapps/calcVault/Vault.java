@@ -22,7 +22,6 @@ import es.dmoral.toasty.Toasty;
 
 public class Vault extends AppCompatActivity {
     ImageView button_photo,button_videos,button_music,button_recordings,button_VPN,button_notes,button_files,button_drive,button_settings;
-    private int STORAGE_PERMISSION_CODE = 1;
     boolean success=true;
     String loc = "Vault";
     File file = new File(Environment.getExternalStorageDirectory()+"/"+loc);
@@ -32,47 +31,13 @@ public class Vault extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (ContextCompat.checkSelfPermission(Vault.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
-          ActivityCompat.requestPermissions(Vault.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
-
+            int STORAGE_PERMISSION_CODE = 1;
+            ActivityCompat.requestPermissions(Vault.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
         initControl();
         initControlListener();
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == STORAGE_PERMISSION_CODE)  {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toasty.info(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
-            } else {
-                Toasty.error(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-    /*private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission needed")
-                    .setMessage("This permission is needed to Display Your Files")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(Vault.this,
-                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create().show();
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-        }
-    }*/
+
     private void initControl(){
         //Row 1
         button_photo = findViewById(R.id.ivPhotos);
@@ -175,6 +140,10 @@ public class Vault extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==(R.id.settings_icon)){
             Intent intent = new Intent(this,SettingsActivity.class);
+            startActivity(intent);
+        }
+        if(item.getItemId()==(R.id.myDrive)){
+            Intent intent = new Intent(this,DriveActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
