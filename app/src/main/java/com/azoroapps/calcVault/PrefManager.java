@@ -9,7 +9,9 @@ public class PrefManager {
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+
     Context _context;
+    static int password;
     // shared pref mode
     int PRIVATE_MODE = 0;
 
@@ -17,6 +19,7 @@ public class PrefManager {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
+
     }
 
     public boolean isFirstTimeLaunch() {

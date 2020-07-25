@@ -4,23 +4,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
-
-import java.io.File;
 
 import es.dmoral.toasty.Toasty;
 
@@ -30,14 +22,14 @@ public class NewUser extends AppCompatActivity {
              tvEqual, buttonClear, tvResult, tvExpression;
     ImageView tvBack;
     PrefManager prefManager;
-    private int STORAGE_PERMISSION_CODE = 1;
-
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TEXT = "text";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefManager = new PrefManager(this);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+        prefManager = new PrefManager(getApplicationContext());
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            int STORAGE_PERMISSION_CODE = 1;
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
 
         }
         Toasty.Config.reset();
@@ -56,67 +48,67 @@ public class NewUser extends AppCompatActivity {
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("0",true);
+                appendOnExpression("0");
             }
         });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("1",true);
+                appendOnExpression("1");
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("2",true);
+                appendOnExpression("2");
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("3",true);
+                appendOnExpression("3");
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("4",true);
+                appendOnExpression("4");
             }
         });
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("5",true);
+                appendOnExpression("5");
             }
         });
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("6",true);
+                appendOnExpression("6");
             }
         });
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("7",true);
+                appendOnExpression("7");
             }
         });
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("8",true);
+                appendOnExpression("8");
             }
         });
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression("9",true);
+                appendOnExpression("9");
             }
         });
         tvDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appendOnExpression(".",true);
+                appendOnExpression(".");
             }
         });
 
@@ -124,63 +116,9 @@ public class NewUser extends AppCompatActivity {
         tvEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = tvExpression.getText().toString();
-                String bla ="To Unlock the vault, press 0/"+txt+" and press the Equal Sign to Login. Press OK again to Re-Login";
-                AlertDialog.Builder builder
-                        = new AlertDialog
-                        .Builder(NewUser.this);
-                builder.setMessage(bla);
-                builder.setCancelable(false);
-                // Set Alert Title
-                builder.setTitle("Great");
-                builder
-                        .setPositiveButton(
-                                "Yes",
-                                new DialogInterface
-                                        .OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which)
-                                    {
-
-                                        prefManager.setFirstTimeLaunch(false);
-                                        Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                });
-                builder
-                        .setNegativeButton(
-                                "No",
-                                new DialogInterface
-                                        .OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which)
-                                    {
-
-                                        // If user click no
-                                        // then dialog box is canceled.
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alertDialog = builder.create();
-
-                // Show the Alert Dialog box
-                alertDialog.show();
-                /*
-                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                        finish();
-                    */
-
+                showDialogue();
             }
         });
-
         //Additional
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +139,7 @@ public class NewUser extends AppCompatActivity {
         });
     }
 
-    private void appendOnExpression(String value, Boolean canClear){
+    private void appendOnExpression(String value){
         if (tvResult.getText()!=null){
             tvResult.setText("");
         }
@@ -209,15 +147,8 @@ public class NewUser extends AppCompatActivity {
             tvExpression.setText("");
 
         }
-        if(canClear){
-            tvResult.setText("");
-            tvExpression.append(value);
-        }
-        else{
-            tvExpression.append(tvResult.getText());
-            tvExpression.append(value);
-            tvResult.setText("");
-        }
+        tvResult.setText("");
+        tvExpression.append(value);
     }
 
     private void initControl() {
@@ -238,4 +169,60 @@ public class NewUser extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult);
         tvBack =  findViewById(R.id.tvBack);
     }
+
+    private void showDialogue(){
+        String txt = tvExpression.getText().toString();
+        String bla ="To Unlock the vault, press 0/"+txt+" and press the Equal Sign to Login. Press OK again to Re-Login";
+        AlertDialog.Builder builder
+                = new AlertDialog
+                .Builder(NewUser.this);
+        builder.setMessage(bla);
+        builder.setCancelable(false);
+        // Set Alert Title
+        builder.setTitle("Great");
+        builder
+                .setPositiveButton(
+                        "Yes",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+                                savePassword();
+                                prefManager.setFirstTimeLaunch(false);
+                                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                                assert i != null;
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                                finish();
+                            }
+                        });
+        builder
+                .setNegativeButton(
+                        "No",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    private void savePassword() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(TEXT, tvExpression.getText().toString());
+        editor.apply();
+        Toasty.success(this,"Password Saved, Re-Login",Toasty.LENGTH_SHORT).show();
+    }
+
 }

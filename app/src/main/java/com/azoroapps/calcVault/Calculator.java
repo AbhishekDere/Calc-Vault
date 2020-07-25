@@ -2,37 +2,36 @@ package com.azoroapps.calcVault;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-
-import java.io.File;
-
 import es.dmoral.toasty.Toasty;
 
+import static com.azoroapps.calcVault.NewUser.SHARED_PREFS;
+
 public class Calculator extends AppCompatActivity {
-    private int STORAGE_PERMISSION_CODE = 1;
     TextView button0,button1, button2, button3, button4, button5, button6, button7, button8, button9, tvDot, buttonAdd,
             buttonSub, buttonMul, buttonDiv, tvOpen, tvClose, tvEqual, buttonClear, tvResult, tvExpression;
     ImageView tvBack;
+    public static final String TEXT = "text";
+    int STORAGE_PERMISSION_CODE;
+    private String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+            STORAGE_PERMISSION_CODE = 1;
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
 
         }
         Toasty.Config.reset();
@@ -154,10 +153,13 @@ public class Calculator extends AppCompatActivity {
 
         //Equal Function
         tvEqual.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String txt = tvExpression.getText().toString();
-                if(txt.equals("0/123")){
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                text = sharedPreferences.getString(TEXT, "");
+                if(txt.equals("0/"+text)){
                     Intent intent= new Intent (getApplicationContext(),Vault.class);
                     startActivity(intent);
                 }
