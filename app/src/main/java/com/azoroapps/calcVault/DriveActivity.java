@@ -25,23 +25,23 @@ public class DriveActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     ImageView avatar;
     TextView name,email,id;
-    GoogleSignInAccount acct;
     Button logoutButton;
+    GoogleSignInAccount acct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive);
-
-        name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
-        id = findViewById(R.id.id);
-        logoutButton = findViewById(R.id.button_sign_out);
-        avatar=findViewById(R.id.avatar);
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        mGoogleSignInClient  = GoogleSignIn.getClient(this, gso);
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        id = findViewById(R.id.id);
+        logoutButton = findViewById(R.id.button_logout);
+        avatar=findViewById(R.id.avatar);
+
+        acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
             String personEmail = acct.getEmail();
@@ -61,19 +61,20 @@ public class DriveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // ...
-                if (v.getId() == R.id.button_sign_out) {
-                    signOut();
+                if (v.getId() == R.id.button_logout) {
+                    LogOut();
                     // ...
                 }
             }
 
         });
     }
-    private void signOut() {
+    private void LogOut() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        acct=null;
                         // ...
                         Toasty.success(getApplicationContext(),"Signed Out",Toasty.LENGTH_SHORT).show();
                         finish();
