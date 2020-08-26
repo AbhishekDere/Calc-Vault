@@ -76,7 +76,9 @@
     <string name="my_profile">My Profile</string>
     <string name="set_your_password">Set Your Password</string>
     <string name="info">For Example: if you set 6410. \nTo Unlock the vault, press 0/6410 in the Start Screen and press the Equal Sign to Login</string>
-<string name="already_have_vault">Already Have Vault?</string>
+    <string name="already_have_vault">Already Have Vault?</string>
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

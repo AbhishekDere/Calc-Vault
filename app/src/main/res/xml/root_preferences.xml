@@ -5,7 +5,7 @@
         <EditTextPreference
             app:key="password"
             app:title="Change Password"
-            app:useSimpleSummaryProvider="false" />
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
             app:defaultValue="reply"

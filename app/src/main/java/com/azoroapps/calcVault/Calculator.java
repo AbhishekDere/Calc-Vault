@@ -38,11 +38,13 @@ public class Calculator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+
         //Assigning the number buttons to layout
         initControl();
 
         //Setting onClickListeners
         initControlListener();
+        //tvExpression.setText("");
     }
 
     private void initControlListener() {
@@ -162,6 +164,7 @@ public class Calculator extends AppCompatActivity {
                 if(txt.equals("0/"+text)){
                     Intent intent= new Intent (getApplicationContext(),Vault.class);
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     try {
@@ -172,7 +175,6 @@ public class Calculator extends AppCompatActivity {
                         Log.d("Exception","Error");
                     }
                 }
-
             }
         });
 

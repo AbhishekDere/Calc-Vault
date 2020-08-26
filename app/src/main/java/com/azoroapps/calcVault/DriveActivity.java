@@ -24,7 +24,7 @@ import es.dmoral.toasty.Toasty;
 public class DriveActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     ImageView avatar;
-    TextView name,email,id;
+    TextView name,email;
     Button logoutButton;
     GoogleSignInAccount acct;
     @Override
@@ -37,7 +37,6 @@ public class DriveActivity extends AppCompatActivity {
         mGoogleSignInClient  = GoogleSignIn.getClient(this, gso);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        id = findViewById(R.id.id);
         logoutButton = findViewById(R.id.button_logout);
         avatar=findViewById(R.id.avatar);
 
@@ -49,7 +48,6 @@ public class DriveActivity extends AppCompatActivity {
             Uri personPhoto = acct.getPhotoUrl();
             name.setText(personName);
             email.setText(personEmail);
-            id.setText(personId);
             Glide.with(this).load(personPhoto).into(avatar);
         }
         else {
@@ -75,10 +73,19 @@ public class DriveActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         acct=null;
-                        // ...
                         Toasty.success(getApplicationContext(),"Signed Out",Toasty.LENGTH_SHORT).show();
+                        /*Intent intent = new Intent(getApplicationContext(),Vault.class);
+                        startActivity(intent);*/
                         finish();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,Vault.class);
+        startActivity(intent);
+        finish();
     }
 }

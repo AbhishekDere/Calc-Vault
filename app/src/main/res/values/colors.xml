@@ -11,6 +11,7 @@
     <color name="numberButton">#455A64</color>
     <color name="bg_mainactivity">#d4e6e3</color>
     <color name="black">#000000</color>
+    <color name="colorDarkBlue">#3D4054</color>
     <!-- Screens background color-->
     <color name="bg_screen1">#16c266</color>
     <color name="bg_screen2">#90c2bb</color>
