@@ -29,7 +29,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">0.5dp</item>
     </style>
-    <style name="NormalLight" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="NormalLight" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

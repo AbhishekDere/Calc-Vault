@@ -23,7 +23,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
         this.context=  context;
         this.albumPhotos=albumPhotos;
     }
-
     @Override
     @NonNull
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

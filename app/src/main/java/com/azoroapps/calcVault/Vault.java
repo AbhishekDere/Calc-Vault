@@ -66,6 +66,7 @@ public class Vault extends AppCompatActivity {
                     //requestStoragePermission();
                 }
                 Intent intent = new Intent(getApplicationContext(), Album.class);
+                intent.putExtra("name","/Photos/");
                 startActivity(intent);
             }
         });
@@ -81,14 +82,16 @@ public class Vault extends AppCompatActivity {
         button_music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Album.class);
+                Intent intent = new Intent(getApplicationContext(), MusicPlayer.class);
                 startActivity(intent);
+
             }
         });
         button_recordings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Recordings.class);
+                intent.putExtra("name","Recordings");
                 startActivity(intent);
             }
         });

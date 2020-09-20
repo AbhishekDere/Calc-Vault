@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,29 +26,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
     private NavController navController;
-
-    private ImageButton listBtn;
     private ImageButton recordBtn;
     private TextView filenameText;
-
     private boolean isRecording = false;
-
-    private String recordPermission = Manifest.permission.RECORD_AUDIO;
-    private int PERMISSION_CODE = 21;
-
     private MediaRecorder mediaRecorder;
     private String recordFile;
-
     private Chronometer timer;
-
     public RecordFragment() {
         // Required empty public constructor
     }
@@ -66,7 +55,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
         //Initialize Variables
         navController = Navigation.findNavController(view);
-        listBtn = view.findViewById(R.id.record_list_btn);
+        ImageButton listBtn = view.findViewById(R.id.record_list_btn);
         recordBtn = view.findViewById(R.id.record_btn);
         timer = view.findViewById(R.id.record_timer);
         filenameText = view.findViewById(R.id.record_filename);
@@ -150,8 +139,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         timer.start();
 
         //Get app external directory path
-        String recordPath = getActivity().getExternalFilesDir("/").getAbsolutePath();
-
+        //String recordPath = Objects.requireNonNull(requireActivity().getExternalFilesDir("/")).getAbsolutePath();
+        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/";
         //Get current date and time
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
@@ -180,11 +169,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkPermissions() {
         //Check permission
+        String recordPermission = Manifest.permission.RECORD_AUDIO;
         if (ActivityCompat.checkSelfPermission(getContext(), recordPermission) == PackageManager.PERMISSION_GRANTED) {
             //Permission Granted
             return true;
         } else {
             //Permission not granted, ask for permission
+            int PERMISSION_CODE = 21;
             ActivityCompat.requestPermissions(getActivity(), new String[]{recordPermission}, PERMISSION_CODE);
             return false;
         }
@@ -198,128 +189,3 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         }
     }
 }
-/*
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.media.MediaRecorder;
-import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import android.os.Environment;
-import java.text.SimpleDateFormat;
-
-import android.os.SystemClock;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Chronometer;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
-
-public class RecordFragment extends Fragment implements View.OnClickListener {
-    private NavController navController;
-    private ImageButton recordbtn;
-    boolean isRecording =false;
-    private MediaRecorder mediaRecorder;
-    private Chronometer timer;
-    private TextView fileNameText;
-
-    public RecordFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_record, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-        ImageButton listbtn = view.findViewById(R.id.record_list_btn);
-        recordbtn=view.findViewById(R.id.record_btn);
-        listbtn.setOnClickListener(this);
-        recordbtn.setOnClickListener(this);
-        timer = view.findViewById(R.id.record_timer);
-        fileNameText = view.findViewById(R.id.record_filename);
-    }
-
-    @Override
-    public void onClick(View v) {
-         switch (v.getId()){
-             case R.id.record_list_btn:
-                 navController.navigate(R.id.action_recordingsFragment_to_recordingListFragment);
-                 break;
-             case R.id.record_btn:
-                 if(isRecording){
-                     //Stop Recording
-                     stopRecording();
-                     recordbtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_stopped,null));
-                     isRecording=false;
-                 }
-                 else{
-                     //Start Recording
-                     if(checkPermissions()){
-                         startRecording();
-                         recordbtn.setImageDrawable(getResources().getDrawable(R.drawable.record_btn_recording,null));
-                         isRecording=true;
-                     }
-
-                 }
-                 break;
-         }
-    }
-
-    private void startRecording() {
-        timer.setBase(SystemClock.elapsedRealtime());
-        timer.start();
-        Date now = new Date();
-        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.US);
-        String recordFile = "Recording_" + formatter.format(now) + ".3gp";
-        fileNameText.setText("Recording, File Name : "+recordFile);
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setOutputFile(recordPath+"/"+ recordFile);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        try {
-            mediaRecorder.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mediaRecorder.start();
-    }
-
-    private void stopRecording() {
-        timer.stop();
-        fileNameText.setText("Recording Stopped, File Saved");
-        mediaRecorder.stop();
-        mediaRecorder.release();
-        mediaRecorder=null;
-    }
-
-    private boolean checkPermissions() {
-        String recordPermission = Manifest.permission.RECORD_AUDIO;
-        if (ActivityCompat.checkSelfPermission(requireContext(), recordPermission) == PackageManager.PERMISSION_GRANTED) {
-            //Permission Granted
-            return true;
-        } else {
-            //Permission not granted, ask for permission
-            int PERMISSION_CODE = 21;
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{recordPermission}, PERMISSION_CODE);
-            return false;
-        }
-    }
-}*/

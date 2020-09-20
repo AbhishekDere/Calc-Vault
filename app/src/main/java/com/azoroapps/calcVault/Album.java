@@ -1,6 +1,7 @@
 package com.azoroapps.calcVault;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -27,31 +28,20 @@ public class Album extends AppCompatActivity {
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
     boolean aBoolean;
-    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault");
+    String nam;
+    String[] directories;
+    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/");
 
-    String[] directories = path.list(new FilenameFilter() {
-        @Override
-        public boolean accept(File current, String name) {
-            return new File(current, name).isDirectory();
-        }
-    });
-
-    private void listingAlbums(){
-        mNames = new ArrayList<>(Arrays.asList(directories));
-            //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-                if(!mNames.isEmpty()){
-                    albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
-                    recyclerView= findViewById(R.id.recycler_id);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-                    recyclerView.setAdapter(albumAdapter);
-
-                }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        directories = path.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+                return new File(current, name).isDirectory();
+            }
+        });
         if(!path.exists()) {
             aBoolean= path.mkdirs();
             if(aBoolean){
@@ -59,6 +49,18 @@ public class Album extends AppCompatActivity {
             }
         }
         listingAlbums();
+    }
+    private void listingAlbums(){
+        mNames = new ArrayList<>(Arrays.asList(directories));
+        //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
+        if(!mNames.isEmpty()){
+            albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
+            recyclerView= findViewById(R.id.recycler_id);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+            recyclerView.setAdapter(albumAdapter);
+
+        }
     }
     //Option Menu
     @Override
@@ -79,7 +81,9 @@ public class Album extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     boolean b;
                     String value = String.valueOf(input.getText());
-                    File file= new File(path+"/"+value);
+                    Intent i = getIntent();
+                    String n = i.getExtras().getString("name");
+                    File file= new File(path+"/"+n+"/"+value);
                     try{
                         if(!file.exists())
                         {

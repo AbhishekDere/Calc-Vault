@@ -1,7 +1,6 @@
 package com.azoroapps.calcVault;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class Recordings extends AppCompatActivity {

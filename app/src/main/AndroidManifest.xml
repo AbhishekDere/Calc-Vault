@@ -8,7 +8,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:remove="android:maxSdkVersion" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".Recordings"></activity>
+        <activity android:name=".MusicPlayer"></activity>
+        <activity android:name=".Recordings" />
         <activity android:name=".NewUser" />
         <activity android:name=".DriveActivity" />
         <activity android:name=".LoginActivity" />
