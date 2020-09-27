@@ -3,6 +3,7 @@ package com.azoroapps.calcVault;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -24,8 +25,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.channels.FileChannel;
 
 import es.dmoral.toasty.Toasty;
 
@@ -33,7 +41,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
     private static final String TAG = "Yes";
     final int REQUEST_EXTERNAL_STORAGE = 100;
     //Path
-    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Music/");
+    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/com.azoroapps.calcVault/Vault/Music/");
     private BottomSheetBehavior bottomSheetBehavior;
     private MediaPlayer mediaPlayer = null;
     private boolean isPlaying = false;
@@ -121,7 +129,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             {
                 b = directory.mkdirs();
                 if(b){
-                    Toasty.success(MusicPlayer.this,"Music Created Successfully", Toast.LENGTH_SHORT).show();
+                    //Toasty.success(MusicPlayer.this,"Music Created Successfully", Toast.LENGTH_SHORT).show();
                     startActivity(getIntent());
                     finish();
                 }
@@ -130,10 +138,10 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
                 }
             }
             else if(directory.exists()){
-                Toasty.info(MusicPlayer.this,"Album Exists, Try Different Name",Toast.LENGTH_LONG).show();
+                //Toasty.info(MusicPlayer.this,"Album Exists, Try Different Name",Toast.LENGTH_LONG).show();
             }
             else{
-                Toasty.info(MusicPlayer.this,"Not Created",Toast.LENGTH_LONG).show();
+                //Toasty.info(MusicPlayer.this,"Not Created",Toast.LENGTH_LONG).show();
             }
         }
         catch (NullPointerException e) {
@@ -142,6 +150,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             Log.w("ExternalStorage", "Error writing " +directory, e);
         }
     }
+
     @Override
     public void onClickListener(File file, int position) {
         fileToPlay = file;
@@ -156,6 +165,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             startService(myService);
         }
     }
+
     private void pauseAudio() {
         mediaPlayer.pause();
         playBtn.setImageDrawable(getResources().getDrawable(R.drawable.player_play_btn, null));
@@ -222,6 +232,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             }
         };
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -229,6 +240,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             stopAudio();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_music, menu);
@@ -237,19 +249,40 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == (R.id.AddNew)) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+        if (item.getItemId() == (R.id.AddNewMusic)) {
             launchFileIntent();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void launchFileIntent() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        Intent i = Intent.createChooser(intent, "File");
-        startActivityForResult(intent, REQUEST_EXTERNAL_STORAGE);
+        Intent intent_upload = new Intent();
+        intent_upload.setType("audio/*");
+        intent_upload.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent_upload,1);
+    }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                Uri uri = data.getData();
+                assert uri != null;
+                Toasty.success(this,"File:"+ uri.getPath()).show();
+                //savefile(uri);
+                try {
+                    File source = new File(uri.getPath());
+                    File destination= new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Music/a.mp3");
+                    FileChannel src = new FileInputStream(source).getChannel();
+                    FileChannel dst = new FileOutputStream(destination).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

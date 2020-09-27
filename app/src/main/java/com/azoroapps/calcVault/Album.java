@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
@@ -28,14 +29,17 @@ public class Album extends AppCompatActivity {
     RecyclerView recyclerView;
     AlbumAdapter albumAdapter;
     boolean aBoolean;
-    String nam;
     String[] directories;
-    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/");
+    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Photos/");
+    String albumName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        if(!path.exists()){
+            boolean k = path.mkdirs();
+        }
         directories = path.list(new FilenameFilter() {
             @Override
             public boolean accept(File current, String name) {
@@ -52,17 +56,17 @@ public class Album extends AppCompatActivity {
     }
     private void listingAlbums(){
         mNames = new ArrayList<>(Arrays.asList(directories));
-        //Backup Code: mNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(path.list())));
-        if(!mNames.isEmpty()){
-            albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
-            recyclerView= findViewById(R.id.recycler_id);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-            recyclerView.setAdapter(albumAdapter);
-
+        if(mNames.isEmpty()){
+            boolean k = path.mkdirs();
         }
+        albumAdapter = new AlbumAdapter(this,mNames,mImageUrls);
+        recyclerView= findViewById(R.id.recycler_id);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setAdapter(albumAdapter);
+
     }
-    //Option Menu
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_album,menu);
@@ -81,9 +85,8 @@ public class Album extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     boolean b;
                     String value = String.valueOf(input.getText());
-                    Intent i = getIntent();
-                    String n = i.getExtras().getString("name");
-                    File file= new File(path+"/"+n+"/"+value);
+
+                    File file= new File(path+"/"+value);
                     try{
                         if(!file.exists())
                         {

@@ -73,7 +73,7 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
 
         playerSeekbar = view.findViewById(R.id.player_seekbar);
 
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Recordings/";
         File directory = new File(path);
         allFiles = directory.listFiles();
 

@@ -22,11 +22,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 public class RecordFragment extends Fragment implements View.OnClickListener {
 
@@ -52,7 +52,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //Initialize Variables
         navController = Navigation.findNavController(view);
         ImageButton listBtn = view.findViewById(R.id.record_list_btn);
@@ -140,7 +139,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
         //Get app external directory path
         //String recordPath = Objects.requireNonNull(requireActivity().getExternalFilesDir("/")).getAbsolutePath();
-        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/";
+        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Recordings";
+        File file = new File(recordPath);
+        if(!file.exists()){
+            file.mkdirs();
+        }
         //Get current date and time
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now = new Date();
