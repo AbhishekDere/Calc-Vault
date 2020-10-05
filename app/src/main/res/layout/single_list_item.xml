@@ -24,6 +24,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/open_sans_semibold"
         android:text="Filename"
+        android:singleLine = "true"
         android:textColor="@color/colorDarkBlue"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/list_image_view"

@@ -10,21 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import java.io.File;
-
+import java.io.IOException;
 import es.dmoral.toasty.Toasty;
 
 public class Vault extends AppCompatActivity {
 
     ImageView button_photo, button_videos, button_music, button_recordings, button_VPN, button_files, button_drive, button_settings;
     boolean success = true;
-    String loc = "Vault";
+    String loc = ".Vault";
     File file = new File(Environment.getExternalStorageDirectory() + "/" + loc);
 
     @Override
@@ -34,6 +32,14 @@ public class Vault extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(Vault.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             int STORAGE_PERMISSION_CODE = 1;
             ActivityCompat.requestPermissions(Vault.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+        File noMediaFile = new File(file+"/.nomedia");
+        if(!noMediaFile.exists()){
+            try {
+                noMediaFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         initControl();
         initControlListener();
@@ -66,7 +72,7 @@ public class Vault extends AppCompatActivity {
                     //requestStoragePermission();
                 }
                 Intent intent = new Intent(getApplicationContext(), Album.class);
-                intent.putExtra("name","/Photos/");
+                intent.putExtra("name","/.Photos/");
                 startActivity(intent);
             }
         });

@@ -1,13 +1,14 @@
 package com.azoroapps.calcVault;
 
-import android.content.Context;
+import android.Manifest;
+import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,32 +17,25 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
-
 import es.dmoral.toasty.Toasty;
 
 public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.onItemListClick {
-    private static final String TAG = "Yes";
-    final int REQUEST_EXTERNAL_STORAGE = 100;
-    //Path
-    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/com.azoroapps.calcVault/Vault/Music/");
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private BottomSheetBehavior bottomSheetBehavior;
     private MediaPlayer mediaPlayer = null;
     private boolean isPlaying = false;
@@ -53,11 +47,13 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
     private SeekBar playerSeekbar;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    //Path
+    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings");
 
-    public IBinder onBind(Intent arg0) {
-        Log.i(TAG, "onBind()" );
-        return null;
-    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_recording_list);
@@ -256,33 +252,92 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
     }
 
     public void launchFileIntent() {
-        Intent intent_upload = new Intent();
-        intent_upload.setType("audio/*");
-        intent_upload.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent_upload,1);
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(Intent.createChooser(intent, "Select Music"), 1);
     }
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
-
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
-                Uri uri = data.getData();
-                assert uri != null;
-                Toasty.success(this,"File:"+ uri.getPath()).show();
-                //savefile(uri);
-                try {
-                    File source = new File(uri.getPath());
-                    File destination= new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Music/a.mp3");
-                    FileChannel src = new FileInputStream(source).getChannel();
-                    FileChannel dst = new FileOutputStream(destination).getChannel();
-                    dst.transferFrom(src, 0, src.size());
-                    src.close();
-                    dst.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(
+                            this,
+                            PERMISSIONS_STORAGE,
+                            REQUEST_EXTERNAL_STORAGE
+                    );
+                }
+                ClipData clipData = data.getClipData();
+                String outputPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings"+File.separator;
+                if(clipData==null){
+                    //Single Image Selection
+                    Uri uri = data.getData();
+                    assert uri != null;
+                    String lp;
+                    lp = RealPathUtil.getRealPath(MusicPlayer.this, uri);
+                    // Get the file instance
+                    File file = new File(lp);
+                    String inputPath= file.getParent()+"/";
+                    String inputFile = file.getName();
+                    moveFile(inputPath,inputFile,outputPath);
+                }
+                else{
+                    //Multiple Images Selection
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        Uri uri = clipData.getItemAt(i).getUri();
+                        String path;
+                        path = RealPathUtil.getRealPath(MusicPlayer.this, uri);
+                        // Get the file instance
+                        File file = new File(path);
+                        String inputPath= file.getParent() +"/";
+                        String inputFile = file.getName();
+                        moveFile(inputPath,inputFile,outputPath);
+                    }
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+        finish();
+        startActivity(getIntent());
+    }
+
+
+    private void moveFile(String inputPath, String inputFile, String outputPath) {
+        InputStream in;
+        OutputStream out;
+        try {
+            //create output directory if it doesn't exist
+            File dir = new File (outputPath);
+            if (!dir.exists())
+            {
+                boolean b =dir.mkdirs();
+                if(b){
+                    Toasty.info(this,"Hiding Images",Toasty.LENGTH_SHORT).show();
+                }
+            }
+            in = new FileInputStream(inputPath + inputFile);
+            out = new FileOutputStream(outputPath + inputFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            // write the output file
+            out.flush();
+            out.close();
+            // delete the original file
+            boolean l = new File(inputPath + inputFile).delete();
+            //Toasty.info(this,"Files Hidden, Please Delete the Original Images",Toasty.LENGTH_SHORT).show();
+        }
+        catch (FileNotFoundException f) {
+            Log.e("File", f.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
     }
 }

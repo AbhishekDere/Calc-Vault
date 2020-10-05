@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.io.File;
 import java.util.ArrayList;
 import es.dmoral.toasty.Toasty;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder> {
@@ -18,8 +17,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     ArrayList<String> albumPhotos;
     Context context;
 
-    AlbumAdapter(Context context, ArrayList<String> data,ArrayList<String> albumPhotos){
-        this.albumNames=data;
+    AlbumAdapter(Context context, ArrayList<String> albumName,ArrayList<String> albumPhotos){
+        this.albumNames=albumName;
         this.context=  context;
         this.albumPhotos=albumPhotos;
     }
@@ -34,28 +33,20 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final String albumName =albumNames.get(position);
-        File photoPath = new File(Environment.getExternalStorageDirectory()+"/"+albumName);
         ArrayList<String> fileName = new ArrayList<>();
         holder.textView.setText(albumNames.get(position));
-
         //holder.imageView.setImageResource());
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,Photos.class);
-                intent.putExtra("AlbumName",albumName);
-                context.startActivity(intent);
-                Toasty.success(context,"Clicked on "+albumName,Toasty.LENGTH_SHORT).show();
-            }
+        holder.linearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(context,Photos.class);
+            intent.putExtra("AlbumName",albumName);
+            context.startActivity(intent);
+            Toasty.success(context,"Clicked on "+albumName,Toasty.LENGTH_SHORT).show();
         });
 
-        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toasty.success(context,"Long Clicked on "+albumName,Toasty.LENGTH_SHORT).show();
+        holder.linearLayout.setOnLongClickListener(v -> {
+            Toasty.success(context,"Long Clicked on "+albumName,Toasty.LENGTH_SHORT).show();
 
-                return true;
-            }
+            return true;
         });
     }
 

@@ -4,8 +4,9 @@
     package="com.azoroapps.calcVault">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
@@ -16,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".MusicPlayer"></activity>
+        <activity android:name=".Videos"></activity>
+        <activity android:name=".MusicPlayer" />
         <activity android:name=".Recordings" />
         <activity android:name=".NewUser" />
         <activity android:name=".DriveActivity" />
@@ -24,6 +26,7 @@
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,8 +40,9 @@
             android:name=".Album"
             android:label="@string/title_activity_albums" />
         <activity android:name=".Vault" />
-        <activity android:name=".Calculator"
-            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".Calculator"
+            android:excludeFromRecents="true" />
         <activity android:name=".MainActivity" />
     </application>
 

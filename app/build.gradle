@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -60,6 +64,4 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     //MDC Material Design Component
     implementation 'com.google.android.material:material:1.2.1'
-    //PhotoPicker
-    implementation 'com.droidninja:filepicker:2.2.4'
 }

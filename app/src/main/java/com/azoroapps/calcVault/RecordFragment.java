@@ -139,7 +139,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
 
         //Get app external directory path
         //String recordPath = Objects.requireNonNull(requireActivity().getExternalFilesDir("/")).getAbsolutePath();
-        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Recordings";
+        String recordPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings";
         File file = new File(recordPath);
         if(!file.exists()){
             file.mkdirs();

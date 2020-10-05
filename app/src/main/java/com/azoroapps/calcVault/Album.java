@@ -30,13 +30,14 @@ public class Album extends AppCompatActivity {
     AlbumAdapter albumAdapter;
     boolean aBoolean;
     String[] directories;
-    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Photos/");
+    File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Photos/");
     String albumName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+
         if(!path.exists()){
             boolean k = path.mkdirs();
         }
@@ -86,7 +87,7 @@ public class Album extends AppCompatActivity {
                     boolean b;
                     String value = String.valueOf(input.getText());
 
-                    File file= new File(path+"/"+value);
+                    File file= new File(path+"/."+value);
                     try{
                         if(!file.exists())
                         {

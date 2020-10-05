@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,152 +48,57 @@ public class Calculator extends AppCompatActivity {
 
     private void initControlListener() {
         //Numbers
-        button0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("0",true);
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("1",true);
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("2",true);
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("3",true);
-            }
-        });
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("4",true);
-            }
-        });
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("5",true);
-            }
-        });
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("6",true);
-            }
-        });
-        button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("7",true);
-            }
-        });
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("8",true);
-            }
-        });
-        button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("9",true);
-            }
-        });
-        tvDot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression(".",true);
-            }
-        });
+        button0.setOnClickListener(v -> appendOnExpression("0",true));
+        button1.setOnClickListener(v -> appendOnExpression("1",true));
+        button2.setOnClickListener(v -> appendOnExpression("2",true));
+        button3.setOnClickListener(v -> appendOnExpression("3",true));
+        button4.setOnClickListener(v -> appendOnExpression("4",true));
+        button5.setOnClickListener(v -> appendOnExpression("5",true));
+        button6.setOnClickListener(v -> appendOnExpression("6",true));
+        button7.setOnClickListener(v -> appendOnExpression("7",true));
+        button8.setOnClickListener(v -> appendOnExpression("8",true));
+        button9.setOnClickListener(v -> appendOnExpression("9",true));
+        tvDot.setOnClickListener(v -> appendOnExpression(".",true));
         //Operators
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("+",false);
-            }
-        });
-        buttonSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("-",false);
-            }
-        });
-        buttonMul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("*",false);
-            }
-        });
-        buttonDiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("/",false);
-            }
-        });
-        tvOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("(",false);
-            }
-        });
-        tvClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression(")",false);
-            }
-        });
+        buttonAdd.setOnClickListener(v -> appendOnExpression("+",false));
+        buttonSub.setOnClickListener(v -> appendOnExpression("-",false));
+        buttonMul.setOnClickListener(v -> appendOnExpression("*",false));
+        buttonDiv.setOnClickListener(v -> appendOnExpression("/",false));
+        tvOpen.setOnClickListener(v -> appendOnExpression("(",false));
+        tvClose.setOnClickListener(v -> appendOnExpression(")",false));
 
         //Equal Function
-        tvEqual.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String txt = tvExpression.getText().toString();
-                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                text = sharedPreferences.getString(TEXT, "");
-                if(txt.equals("0/"+text)){
-                    Intent intent= new Intent (getApplicationContext(),Vault.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    try {
-                        Expression expression = new ExpressionBuilder(txt).build();
-                        double result = expression.evaluate();
-                        tvResult.setText(String.valueOf(result));
-                    } catch (Exception e){
-                        Log.d("Exception","Error");
-                    }
+        tvEqual.setOnClickListener(v -> {
+            String txt = tvExpression.getText().toString();
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            text = sharedPreferences.getString(TEXT, "");
+            if(txt.equals("0/"+text)){
+                Intent intent= new Intent (getApplicationContext(),Vault.class);
+                startActivity(intent);
+                finish();
+            }
+            else{
+                try {
+                    Expression expression = new ExpressionBuilder(txt).build();
+                    double result = expression.evaluate();
+                    tvResult.setText(String.valueOf(result));
+                } catch (Exception e){
+                    Log.d("Exception","Error");
                 }
             }
         });
 
         //Additional
-        buttonClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tvExpression.setText("");
-                tvResult.setText("");
-            }
+        buttonClear.setOnClickListener(v -> {
+            tvExpression.setText("");
+            tvResult.setText("");
         });
-        tvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String val =tvExpression.getText().toString();
-                int length=tvExpression.length();
-                if(length>0){
-                tvExpression.setText(val.substring(0,length-1));}
-                tvResult.setText("");
-            }
+        tvBack.setOnClickListener(v -> {
+            String val =tvExpression.getText().toString();
+            int length=tvExpression.length();
+            if(length>0){
+            tvExpression.setText(val.substring(0,length-1));}
+            tvResult.setText("");
         });
     }
 
