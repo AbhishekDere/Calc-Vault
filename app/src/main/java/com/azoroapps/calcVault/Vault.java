@@ -80,7 +80,7 @@ public class Vault extends AppCompatActivity {
         button_videos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Album.class);
+                Intent intent = new Intent(getApplicationContext(), Videos.class);
                 startActivity(intent);
 
             }

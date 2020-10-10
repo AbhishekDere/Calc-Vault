@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
+
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
     Context context;
     ArrayList<ImageDetails> images;
@@ -32,6 +34,13 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
         ImageDetails obj = images.get(position);
         Picasso.with(context).load(obj.getUri()).placeholder(R.drawable.placeholder).fit().centerCrop().into(holder.imageView);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toasty.success(context,"working"+images.get(position),Toasty.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -45,8 +54,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
         LinearLayout linearLayout;
         public PhotoViewHolder(@NonNull View itemView) {
             super(itemView);
-            linearLayout = itemView.findViewById(R.id.photo_id);
+            linearLayout = itemView.findViewById(R.id.video_layout);
             imageView = itemView.findViewById(R.id.image);
+            imageView.setPadding(10,10,10,5);
         }
     }
 }

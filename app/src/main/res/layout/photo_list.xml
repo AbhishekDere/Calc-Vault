@@ -8,15 +8,10 @@
     android:orientation="horizontal"
     tools:ignore="UseCompoundDrawables">
 
-
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="158dp"
         android:contentDescription="@string/album_description"
         app:srcCompat="@drawable/album" />
-
-
-
-
 </LinearLayout>

@@ -43,7 +43,6 @@ public class Photos extends AppCompatActivity {
         Intent intent = getIntent();
         String albumName = Objects.requireNonNull(intent.getExtras()).getString("AlbumName");
         listingPhotos();
-
     }
 
     private void listingPhotos() {
