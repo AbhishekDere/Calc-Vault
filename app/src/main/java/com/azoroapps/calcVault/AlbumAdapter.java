@@ -26,6 +26,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     @NonNull
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+
         View view=layoutInflater.inflate(R.layout.album_list, parent,false);
         return new MyViewHolder(view);
     }
@@ -34,7 +35,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final String albumName =albumNames.get(position);
         ArrayList<String> fileName = new ArrayList<>();
-        holder.textView.setText(albumNames.get(position));
+        holder.textView.setText(albumNames.get(position).substring(1));
         //holder.imageView.setImageResource());
         holder.linearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context,Photos.class);

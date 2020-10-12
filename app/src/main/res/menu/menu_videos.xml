@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/AddNewPhotos"
-        android:title="@string/add_new_photos"
+        android:id="@+id/AddNewVideos"
+        android:title="@string/add_videos"
         app:showAsAction="ifRoom"
-       />
+        />
     <item
-        android:id="@+id/select_photos"
+        android:id="@+id/select_videos"
         android:orderInCategory="100"
         android:title="@string/select" />
 </menu>

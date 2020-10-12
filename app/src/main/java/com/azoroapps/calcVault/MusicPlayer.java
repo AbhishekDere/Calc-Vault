@@ -52,7 +52,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     //Path
-    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings");
+    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Music");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -270,7 +270,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
                     );
                 }
                 ClipData clipData = data.getClipData();
-                String outputPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings"+File.separator;
+                String outputPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Music"+File.separator;
                 if(clipData==null){
                     //Single Image Selection
                     Uri uri = data.getData();

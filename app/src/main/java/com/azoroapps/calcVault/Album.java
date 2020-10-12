@@ -31,7 +31,6 @@ public class Album extends AppCompatActivity {
     boolean aBoolean;
     String[] directories;
     File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Photos/");
-    String albumName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class Album extends AppCompatActivity {
         }
         listingAlbums();
     }
+
     private void listingAlbums(){
         mNames = new ArrayList<>(Arrays.asList(directories));
         if(mNames.isEmpty()){
