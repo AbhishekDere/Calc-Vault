@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.azoroapps.calcVault">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".ImageViewer"></activity>
-        <activity android:name=".Videos" />
-        <activity android:name=".MusicPlayer" />
-        <activity android:name=".Recordings" />
+        <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".ImageViewer" />
+        <activity android:name=".view.Videos" />
+        <activity android:name=".view.MusicPlayer" />
+        <activity android:name=".view.Recordings" />
         <activity android:name=".NewUser" />
         <activity android:name=".DriveActivity" />
         <activity android:name=".LoginActivity" />
@@ -31,20 +33,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Photos" />
+        <activity android:name=".view.Photos" />
         <activity android:name=".VpnList" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".Vault" />
+            android:parentActivityName=".view.Vault" />
         <activity
-            android:name=".Album"
+            android:name=".view.Album"
             android:label="@string/title_activity_albums" />
-        <activity android:name=".Vault" />
+        <activity android:name=".view.Vault" />
         <activity
-            android:name=".Calculator"
+            android:name=".view.Calculator"
             android:excludeFromRecents="true" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".TempActivity" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -52,7 +55,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 

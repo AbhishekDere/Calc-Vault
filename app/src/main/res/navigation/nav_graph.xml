@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/recordingsFragment"
-        android:name="com.azoroapps.calcVault.RecordFragment"
+        android:name="com.azoroapps.calcVault.view.RecordFragment"
         android:label="fragment_recordings"
         tools:layout="@layout/fragment_record">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/recordingListFragment"
-        android:name="com.azoroapps.calcVault.RecordingListFragment"
+        android:name="com.azoroapps.calcVault.view.RecordingListFragment"
         android:label="fragment_recording_list"
         tools:layout="@layout/fragment_recording_list" />
 </navigation>

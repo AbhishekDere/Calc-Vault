@@ -16,6 +16,8 @@
     <color name="bg_screen1">#16c266</color>
     <color name="bg_screen2">#90c2bb</color>
     <color name="bg_screen3">#16c266</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="rightNav">#032e63</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#39d1ba</color>
