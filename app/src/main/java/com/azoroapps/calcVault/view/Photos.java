@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.azoroapps.calcVault.ImageDetails;
-import com.azoroapps.calcVault.PhotosAdapter;
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.RealPathUtil;
 

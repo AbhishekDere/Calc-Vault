@@ -51,10 +51,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
     private SharedPreference preference;
 
     private FragmentMainBinding binding;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
@@ -142,7 +140,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
                     startActivityForResult(intent, 1);
                 } else startVpn();//have already permission
 
-                // Update confection status
+                // Update connection status
                 status("connecting");
 
             } else {
@@ -164,7 +162,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
      */
     public boolean stopVpn() {
         try {
-            vpnThread.stop();
+            OpenVPNThread.stop();
 
             status("connect");
             vpnStart = false;
@@ -203,7 +201,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
      * Get service status
      */
     public void isServiceRunning() {
-        setStatus(vpnService.getStatus());
+        setStatus(OpenVPNService.getStatus());
     }
 
     /**
@@ -246,7 +244,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
             case "DISCONNECTED":
                 status("connect");
                 vpnStart = false;
-                vpnService.setDefaultStatus();
+                OpenVPNService.setDefaultStatus();
                 binding.logTv.setText("");
                 break;
             case "CONNECTED":

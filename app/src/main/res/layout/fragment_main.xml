@@ -22,7 +22,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="20dp"
             android:id="@+id/connectionStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,11 +81,12 @@
                 android:tag="1"
                 android:id="@+id/vpnBtn"
                 android:layout_width="150dp"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:background="@drawable/button"
                 android:text="Connect"
+                android:singleLine="true"
                 android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
         <ImageView
             android:layout_marginBottom="20dp"

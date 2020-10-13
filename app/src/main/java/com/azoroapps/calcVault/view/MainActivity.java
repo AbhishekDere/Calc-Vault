@@ -21,6 +21,7 @@ import com.azoroapps.calcVault.interfaces.NavItemClickListener;
 import com.azoroapps.calcVault.model.Server;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.azoroapps.calcVault.Utils;
 
@@ -29,12 +30,10 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
     private FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     private Fragment fragment;
     private RecyclerView serverListRv;
-    private ArrayList<Server> serverLists;
-    private ServerListRVAdapter serverListRVAdapter;
+    private ArrayList serverLists;
     private DrawerLayout drawer;
     private ChangeServer changeServer;
 
-    public static final String TAG = "CakeVPN";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
 
         // Server List recycler view initialize
         if (serverLists != null) {
-            serverListRVAdapter = new ServerListRVAdapter(serverLists, this);
+            ServerListRVAdapter serverListRVAdapter = new ServerListRVAdapter(serverLists, this);
             serverListRv.setAdapter(serverListRVAdapter);
         }
 
@@ -108,27 +107,15 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
 
         ArrayList<Server> servers = new ArrayList<>();
 
-        servers.add(new Server("United States",
-                Utils.getImgURL(R.drawable.usa_flag),
-                "us.ovpn",
-                "freeopenvpn",
-                "416248023"
+        servers.add(new Server("Korea",
+                Utils.getImgURL(R.drawable.korea),
+                "vpngate_vpn252079184.opengw.net_udp_1482.ovpn",
+                "vpn",
+                "vpn"
         ));
         servers.add(new Server("Japan",
                 Utils.getImgURL(R.drawable.japan),
-                "japan.ovpn",
-                "vpn",
-                "vpn"
-        ));
-        servers.add(new Server("Sweden",
-                Utils.getImgURL(R.drawable.sweden),
-                "sweden.ovpn",
-                "vpn",
-                "vpn"
-        ));
-        servers.add(new Server("Korea",
-                Utils.getImgURL(R.drawable.korea),
-                "korea.ovpn",
+                "vpngate_vpn319831427.opengw.net_udp_1248.ovpn",
                 "vpn",
                 "vpn"
         ));
@@ -143,6 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
     @Override
     public void clickedItem(int index) {
         closeDrawer();
-        changeServer.newServer(serverLists.get(index));
+        changeServer.newServer((Server) serverLists.get(index));
     }
 }

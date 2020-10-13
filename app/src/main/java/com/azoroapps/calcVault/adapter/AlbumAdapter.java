@@ -20,7 +20,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     ArrayList<String> albumPhotos;
     Context context;
 
-    AlbumAdapter(Context context, ArrayList<String> albumName,ArrayList<String> albumPhotos){
+   public AlbumAdapter(Context context, ArrayList<String> albumName,ArrayList<String> albumPhotos){
         this.albumNames=albumName;
         this.context=  context;
         this.albumPhotos=albumPhotos;
