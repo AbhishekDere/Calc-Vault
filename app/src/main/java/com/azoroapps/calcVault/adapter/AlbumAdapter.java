@@ -1,6 +1,7 @@
 package com.azoroapps.calcVault.adapter;
 import android.content.Intent;
 import android.content.Context;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.azoroapps.calcVault.ImageDetails;
 import com.azoroapps.calcVault.view.Photos;
 import com.azoroapps.calcVault.R;
+import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.ArrayList;
 import es.dmoral.toasty.Toasty;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder> {
@@ -36,9 +40,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+       ImageDetails obj = new ImageDetails();
+       obj.getUri();
         final String albumName =albumNames.get(position);
-        ArrayList<String> fileName = new ArrayList<>();
         holder.textView.setText(albumNames.get(position).substring(1));
+        Glide.with(context)
+                .load(obj.getUri())
+                .into(holder.imageView);
         //holder.imageView.setImageResource());
         holder.linearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, Photos.class);

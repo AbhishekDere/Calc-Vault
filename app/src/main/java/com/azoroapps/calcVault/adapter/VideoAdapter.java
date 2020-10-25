@@ -3,6 +3,7 @@ package com.azoroapps.calcVault.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
     @NonNull
     @Override
     public myVideoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view=layoutInflater.inflate(R.layout.video_list, parent,false);
         return new myVideoHolder(view);
@@ -49,9 +53,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         });
     }
     protected void playVideo(Uri fileUri){
-        Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(String.valueOf(fileUri)));
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.valueOf(photoURI)));
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(String.valueOf(fileUri)), "video/mp4");
         context.startActivity(intent);
     }
 

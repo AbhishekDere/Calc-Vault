@@ -19,7 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".EditFileActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".AddActivity" />
+        <activity android:name=".view.VpnActivity" />
         <activity android:name=".ImageViewer" />
         <activity android:name=".view.Videos" />
         <activity android:name=".view.MusicPlayer" />
@@ -35,10 +39,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.Photos" />
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".view.Vault" />
         <activity
             android:name=".view.Album"
             android:label="@string/title_activity_albums" />
@@ -73,6 +73,15 @@
             </intent-filter>
         </service>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

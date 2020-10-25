@@ -12,7 +12,7 @@ public class TempActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_vpn);
         PrefManager prefManager = new PrefManager(getApplicationContext());
         if(prefManager.isFirstTimeLaunch()){
             prefManager.setFirstTimeLaunch(false);

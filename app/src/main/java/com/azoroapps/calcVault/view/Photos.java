@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.azoroapps.calcVault.ImageDetails;
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.RealPathUtil;
+import com.azoroapps.calcVault.adapter.PhotosAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;

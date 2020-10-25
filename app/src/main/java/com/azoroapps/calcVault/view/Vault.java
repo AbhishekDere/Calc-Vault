@@ -16,8 +16,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.azoroapps.calcVault.DriveActivity;
+import com.azoroapps.calcVault.MainActivity;
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.SettingsActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -109,7 +109,7 @@ public class Vault extends AppCompatActivity {
         button_VPN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), VpnActivity.class);
                 startActivity(intent);
             }
         });
@@ -117,7 +117,7 @@ public class Vault extends AppCompatActivity {
         button_files.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Album.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -131,8 +131,8 @@ public class Vault extends AppCompatActivity {
         button_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -147,8 +147,8 @@ public class Vault extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == (R.id.settings_icon)) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);*/
         }
         if (item.getItemId() == (R.id.myDrive)) {
             Intent intent = new Intent(this, DriveActivity.class);
