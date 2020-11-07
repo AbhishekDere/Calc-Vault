@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/silver"
-    tools:context="com.azoroapps.calcVault.MainActivity">
+    tools:context="com.azoroapps.calcVault.view.NotesActivity">
 
     <TextView
         android:id="@+id/textView"

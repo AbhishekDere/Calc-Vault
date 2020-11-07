@@ -17,10 +17,12 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.RealPathUtil;
-import com.azoroapps.calcVault.VideoDetails;
+import com.azoroapps.calcVault.utilities.RealPathUtil;
 import com.azoroapps.calcVault.adapter.VideoAdapter;
 
 import java.io.File;
@@ -39,7 +41,7 @@ public class Videos extends AppCompatActivity {
     VideoDetails videoDetails;
     RecyclerView recyclerView;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -85,6 +87,9 @@ public class Videos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.AddNewVideos) {
             launchGalleryIntent();
+        }
+        if(item.getItemId()==R.id.select_videos){
+            //TODO
         }
         return super.onOptionsItemSelected(item);
     }

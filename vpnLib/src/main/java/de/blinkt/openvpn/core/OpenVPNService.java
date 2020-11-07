@@ -50,6 +50,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Locale;
@@ -236,7 +237,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     @Override
     public void challengeResponse(String response) throws RemoteException {
         if (mManagement != null) {
-            String b64response = Base64.encodeToString(response.getBytes(Charset.forName("UTF-8")), Base64.DEFAULT);
+            String b64response = Base64.encodeToString(response.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
             mManagement.sendCRResponse(b64response);
         }
     }
@@ -984,12 +985,8 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     }
 
     private boolean isLockdownEnabledCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            return isLockdownEnabled();
-        } else {
-            /* We cannot determine this, return false */
-            return false;
-        }
+        /* We cannot determine this, return false */
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
 
     }
 
@@ -1402,7 +1399,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private void sendMessage(String state) {
         Intent intent = new Intent("connectionState");
         intent.putExtra("state", state);
-        this.state = state;
+        OpenVPNService.state = state;
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
     //sending message to main activity

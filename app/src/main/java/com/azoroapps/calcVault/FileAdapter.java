@@ -8,12 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.azoroapps.calcVault.utilities.FileItem;
+
 import java.util.List;
 
 public class FileAdapter extends BaseAdapter {
     private final Context context;
     private final List<FileItem> fileDataset;
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public FileAdapter(Context context, List<FileItem> fileDataset) {
         this.context = context;
@@ -39,7 +41,7 @@ public class FileAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View root = null;
+        View root;
         if(convertView == null){
             root = inflater.inflate(R.layout.file_item,parent,false);
         }else{

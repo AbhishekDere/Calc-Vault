@@ -22,9 +22,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.azoroapps.calcVault.databinding.FragmentVpnBinding;
 import com.bumptech.glide.Glide;
-import com.azoroapps.calcVault.CheckInternetConnection;
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.SharedPreference;
+import com.azoroapps.calcVault.utilities.SharedPreference;
 import com.azoroapps.calcVault.interfaces.ChangeServer;
 import com.azoroapps.calcVault.model.Server;
 
@@ -45,8 +44,8 @@ public class VpnFragment extends Fragment implements View.OnClickListener, Chang
     private Server server;
     private CheckInternetConnection connection;
 
-    private OpenVPNThread vpnThread = new OpenVPNThread();
-    private OpenVPNService vpnService = new OpenVPNService();
+    private final OpenVPNThread vpnThread = new OpenVPNThread();
+    private final OpenVPNService vpnService = new OpenVPNService();
     boolean vpnStart = false;
     private SharedPreference preference;
 

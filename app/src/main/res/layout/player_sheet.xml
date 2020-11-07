@@ -87,7 +87,7 @@
         app:srcCompat="@drawable/player_play_btn" />
 
     <ImageButton
-        android:id="@+id/imageView3"
+        android:id="@+id/prevBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -99,9 +99,9 @@
         app:srcCompat="@drawable/player_back_btn" />
 
     <ImageButton
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/nextBtn"
+        android:layout_width="51dp"
+        android:layout_height="38dp"
         android:background="@color/colorPrimary"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"

@@ -24,9 +24,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.azoroapps.calcVault.BackgroundSoundService;
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.RealPathUtil;
+import com.azoroapps.calcVault.utilities.RealPathUtil;
 import com.azoroapps.calcVault.adapter.AudioListAdapter;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.File;
@@ -47,15 +46,17 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
     private File fileToPlay = null;
     //UI Elements
     private ImageButton playBtn;
+    private static final String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private ImageButton nextBtn;
     private TextView playerHeader;
     private TextView playerFilename;
     private SeekBar playerSeekbar;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    private ImageButton prevBtn;
     //Path
     File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Music");
 
@@ -70,6 +71,10 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
         playerHeader = findViewById(R.id.player_header_title);
         playerFilename = findViewById(R.id.player_filename);
         playerSeekbar = findViewById(R.id.player_seekbar);
+        nextBtn=findViewById(R.id.nextBtn);
+        prevBtn=findViewById(R.id.prevBtn);
+        nextBtn.setVisibility(View.GONE);
+        prevBtn.setVisibility(View.GONE);
         File[] allFiles = directory.listFiles();
         AudioListAdapter audioListAdapter = new AudioListAdapter(allFiles, this);
         audioList.setHasFixedSize(true);
@@ -307,7 +312,6 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
         finish();
         startActivity(getIntent());
     }
-
 
     private void moveFile(String inputPath, String inputFile, String outputPath) {
         InputStream in;

@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault.view;
+    package com.azoroapps.calcVault.view;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -43,7 +43,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,14 +59,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         recordBtn = view.findViewById(R.id.record_btn);
         timer = view.findViewById(R.id.record_timer);
         filenameText = view.findViewById(R.id.record_filename);
-
         /* Setting up on click listener
            - Class must implement 'View.OnClickListener' and override 'onClick' method
          */
         listBtn.setOnClickListener(this);
         recordBtn.setOnClickListener(this);
-
-
     }
 
     @Override

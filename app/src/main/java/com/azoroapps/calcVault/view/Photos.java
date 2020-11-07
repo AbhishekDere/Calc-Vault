@@ -16,9 +16,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.azoroapps.calcVault.ImageDetails;
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.RealPathUtil;
+import com.azoroapps.calcVault.utilities.RealPathUtil;
 import com.azoroapps.calcVault.adapter.PhotosAdapter;
 
 import java.io.File;
@@ -34,7 +33,7 @@ import es.dmoral.toasty.Toasty;
 
 public class Photos extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };

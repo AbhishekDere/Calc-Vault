@@ -10,6 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.azoroapps.calcVault.utilities.FileItem;
+import com.azoroapps.calcVault.view.NotesActivity;
+
 import java.io.File;
 
 import java.text.DecimalFormat;
@@ -40,7 +43,7 @@ public class EditActivity extends AppCompatActivity {
                 Animation animation = AnimationUtils.loadAnimation(EditActivity.this,R.anim.bubble);
                 findViewById(R.id.imgListBack).startAnimation(animation);
 
-                Intent intentList = new Intent(EditActivity.this,MainActivity.class);
+                Intent intentList = new Intent(EditActivity.this, NotesActivity.class);
                 startActivity(intentList);
                 finish();
             }

@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -17,7 +17,7 @@ public class BackgroundSoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        //mediaPlayer = MediaPlayer.create(this, );
+        //mediaPlayer = MediaPlayer.create(this);
         //mediaPlayer.setLooping(true); // Set looping
         //mediaPlayer.setVolume(100, 100);
     }

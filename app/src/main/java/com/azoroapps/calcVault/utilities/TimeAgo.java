@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.utilities;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;

@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.azoroapps.calcVault.utilities.PrefManager;
+
 import es.dmoral.toasty.Toasty;
 
 public class NewUser extends AppCompatActivity {
@@ -24,7 +26,6 @@ public class NewUser extends AppCompatActivity {
     ImageView tvBack;
     PrefManager prefManager;
     public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String TEXT = "text";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prefManager = new PrefManager(getApplicationContext());
@@ -46,97 +47,31 @@ public class NewUser extends AppCompatActivity {
 
     private void initControlListener() {
         //Numbers
-        button0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("0");
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("1");
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("2");
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("3");
-            }
-        });
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("4");
-            }
-        });
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("5");
-            }
-        });
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("6");
-            }
-        });
-        button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("7");
-            }
-        });
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("8");
-            }
-        });
-        button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression("9");
-            }
-        });
-        tvDot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appendOnExpression(".");
-            }
-        });
+        button0.setOnClickListener(v -> appendOnExpression("0"));
+        button1.setOnClickListener(v -> appendOnExpression("1"));
+        button2.setOnClickListener(v -> appendOnExpression("2"));
+        button3.setOnClickListener(v -> appendOnExpression("3"));
+        button4.setOnClickListener(v -> appendOnExpression("4"));
+        button5.setOnClickListener(v -> appendOnExpression("5"));
+        button6.setOnClickListener(v -> appendOnExpression("6"));
+        button7.setOnClickListener(v -> appendOnExpression("7"));
+        button8.setOnClickListener(v -> appendOnExpression("8"));
+        button9.setOnClickListener(v -> appendOnExpression("9"));
+        tvDot.setOnClickListener(v -> appendOnExpression("."));
 
         //Equal Function
-        tvEqual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogue();
-            }
-        });
+        tvEqual.setOnClickListener(v -> showDialogue());
         //Additional
-        buttonClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tvExpression.setText("");
-                tvResult.setText("");
-            }
+        buttonClear.setOnClickListener(v -> {
+            tvExpression.setText("");
+            tvResult.setText("");
         });
-        tvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String val =tvExpression.getText().toString();
-                int length=tvExpression.length();
-                if(length>0){
-                    tvExpression.setText(val.substring(0,length-1));}
-                tvResult.setText("");
-            }
+        tvBack.setOnClickListener(v -> {
+            String val =tvExpression.getText().toString();
+            int length=tvExpression.length();
+            if(length>0){
+                tvExpression.setText(val.substring(0,length-1));}
+            tvResult.setText("");
         });
     }
 
@@ -209,7 +144,6 @@ public class NewUser extends AppCompatActivity {
                         "No",
                         new DialogInterface
                                 .OnClickListener() {
-
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which)
@@ -225,7 +159,7 @@ public class NewUser extends AppCompatActivity {
     private void savePassword() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(TEXT, tvExpression.getText().toString());
+        editor.putString("password", tvExpression.getText().toString());
         editor.apply();
         Toasty.success(this,"Password Saved, Re-Login",Toasty.LENGTH_SHORT).show();
     }

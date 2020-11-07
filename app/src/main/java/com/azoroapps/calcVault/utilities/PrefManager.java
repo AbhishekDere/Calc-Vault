@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;

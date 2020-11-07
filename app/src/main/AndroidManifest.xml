@@ -6,46 +6,48 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/lock_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/lock_logo"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".view.Calculator" android:screenOrientation="portrait" />
+        <activity android:name=".view.VaultScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".view.NotesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".EditFileActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".view.VpnActivity" />
-        <activity android:name=".ImageViewer" />
-        <activity android:name=".view.Videos" />
-        <activity android:name=".view.MusicPlayer" />
-        <activity android:name=".view.Recordings" />
+        <activity android:name=".ImageViewer" android:screenOrientation="portrait"/>
+        <activity android:name=".view.Videos" android:screenOrientation="portrait" />
+        <activity android:name=".view.MusicPlayer" android:screenOrientation="portrait"/>
+        <activity android:name=".view.Recordings" android:screenOrientation="portrait"/>
         <activity android:name=".NewUser" />
         <activity android:name=".DriveActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".view.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".view.WelcomeActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.Photos" />
+        <activity android:name=".view.Photos" android:screenOrientation="portrait"/>
         <activity
             android:name=".view.Album"
             android:label="@string/title_activity_albums" />
-        <activity android:name=".view.Vault" />
-        <activity
-            android:name=".view.Calculator"
-            android:excludeFromRecents="true" />
         <activity android:name=".TempActivity" />
 
         <provider
@@ -73,15 +75,7 @@
             </intent-filter>
         </service>
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
+        <service android:name=".view.BackgroundSoundService" android:enabled="true" />
     </application>
 
 </manifest>

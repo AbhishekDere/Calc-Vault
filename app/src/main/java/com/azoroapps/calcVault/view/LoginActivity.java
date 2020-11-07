@@ -1,10 +1,14 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import com.azoroapps.calcVault.DriveActivity;
+import com.azoroapps.calcVault.R;
+import com.azoroapps.calcVault.utilities.PrefManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null){
-            Intent intent = new Intent(this,DriveActivity.class);
+            Intent intent = new Intent(this, DriveActivity.class);
             startActivity(intent);
             finish();
         }

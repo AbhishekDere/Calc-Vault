@@ -23,11 +23,11 @@ import com.azoroapps.calcVault.model.Server;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.azoroapps.calcVault.Utils;
+import com.azoroapps.calcVault.utilities.Utils;
 
 
 public class VpnActivity extends AppCompatActivity implements NavItemClickListener {
-    private FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    private final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     private Fragment fragment;
     private RecyclerView serverListRv;
     private ArrayList serverLists;

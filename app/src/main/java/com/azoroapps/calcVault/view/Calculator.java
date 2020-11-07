@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.azoroapps.calcVault.R;
 
 import net.objecthunter.exp4j.Expression;
@@ -24,7 +23,6 @@ public class Calculator extends AppCompatActivity {
     TextView button0,button1, button2, button3, button4, button5, button6, button7, button8, button9, tvDot, buttonAdd,
             buttonSub, buttonMul, buttonDiv, tvOpen, tvClose, tvEqual, buttonClear, tvResult, tvExpression;
     ImageView tvBack;
-    public static final String TEXT = "text";
     int STORAGE_PERMISSION_CODE;
     private String text;
     @Override
@@ -74,9 +72,9 @@ public class Calculator extends AppCompatActivity {
         tvEqual.setOnClickListener(v -> {
             String txt = tvExpression.getText().toString();
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            text = sharedPreferences.getString(TEXT, "");
+            text = sharedPreferences.getString("password", "");
             if(txt.equals("0/"+text)){
-                Intent intent= new Intent (getApplicationContext(),Vault.class);
+                Intent intent= new Intent (this, VaultScreen.class);
                 startActivity(intent);
                 finish();
             }

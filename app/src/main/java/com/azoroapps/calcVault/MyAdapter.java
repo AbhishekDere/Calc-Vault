@@ -8,13 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.azoroapps.calcVault.view.MyItem;
+
 import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
     private final Context context;
     private final List<MyItem> dataset;
 
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public MyAdapter( Context context,List<MyItem> dataset) {
 

@@ -109,7 +109,8 @@ public class EditFileActivity extends AppCompatActivity {
                 }else {
                     ((EditText)findViewById(R.id.edtTempNotepad)).setText(" ");
                     ((EditText)findViewById(R.id.edtTempNotepad)).setText(strTxtafterEdit);
-                    //If we don't do above,clicking on save will make notepad empty, so we have
+                    //If we don't do above,clicking on save will make notepad em
+                    // pty, so we have
                     //to show the entire text on notepad and hence the above line
 
 

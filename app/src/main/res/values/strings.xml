@@ -103,4 +103,7 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="choose_your_location">choose your location</string>
+    <string name="press_mic">Press the mic button \n to start recording</string>
+    <string name="kk">kk</string>
+    <string name="hh">hh</string>
 </resources>

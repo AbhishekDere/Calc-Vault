@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.azoroapps.calcVault.AddActivity;
+import com.azoroapps.calcVault.EditActivity;
+import com.azoroapps.calcVault.MyAdapter;
+import com.azoroapps.calcVault.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class NotesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(dataset.get(position).equals(dataset.get(0))){
-                    Intent intent = new Intent(MainActivity.this,AddActivity.class);
+                    Intent intent = new Intent(NotesActivity.this, AddActivity.class);
                     startActivity(intent);
                 }else if (dataset.get(position).equals(dataset.get(1))){
-                    Intent intent = new Intent(MainActivity.this,EditActivity.class);
+                    Intent intent = new Intent(NotesActivity.this, EditActivity.class);
                     startActivity(intent);
                 }
 

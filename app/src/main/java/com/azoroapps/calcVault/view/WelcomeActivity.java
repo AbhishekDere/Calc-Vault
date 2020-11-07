@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.azoroapps.calcVault.view.Calculator;
+import com.azoroapps.calcVault.NewUser;
+import com.azoroapps.calcVault.R;
+import com.azoroapps.calcVault.utilities.PrefManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.SignInButton;
 

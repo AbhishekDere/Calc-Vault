@@ -16,14 +16,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.azoroapps.calcVault.DriveActivity;
-import com.azoroapps.calcVault.MainActivity;
 import com.azoroapps.calcVault.R;
+import com.azoroapps.calcVault.TempActivity;
 
 import java.io.File;
 import java.io.IOException;
 import es.dmoral.toasty.Toasty;
 
-public class Vault extends AppCompatActivity {
+public class VaultScreen extends AppCompatActivity {
 
     ImageView button_photo, button_videos, button_music, button_recordings, button_VPN, button_files, button_drive, button_settings;
     boolean success = true;
@@ -34,9 +34,9 @@ public class Vault extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_vault);
         super.onCreate(savedInstanceState);
-        if (ContextCompat.checkSelfPermission(Vault.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(VaultScreen.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             int STORAGE_PERMISSION_CODE = 1;
-            ActivityCompat.requestPermissions(Vault.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(VaultScreen.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
         File noMediaFile = new File(file+"/.nomedia");
         if(!noMediaFile.exists()){
@@ -68,11 +68,11 @@ public class Vault extends AppCompatActivity {
         button_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(Vault.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toasty.success(Vault.this, "Authorised", Toast.LENGTH_SHORT).show();
+                if (ContextCompat.checkSelfPermission(VaultScreen.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Toasty.success(VaultScreen.this, "Authorised", Toast.LENGTH_SHORT).show();
                     success = file.mkdirs();
                     if (success) {
-                        Toasty.info(Vault.this, "Vault Created", Toast.LENGTH_SHORT).show();
+                        Toasty.info(VaultScreen.this, "Vault Created", Toast.LENGTH_SHORT).show();
                     }
                     //requestStoragePermission();
                 }
@@ -117,7 +117,7 @@ public class Vault extends AppCompatActivity {
         button_files.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NotesActivity.class);
                 startActivity(intent);
             }
         });
@@ -131,8 +131,8 @@ public class Vault extends AppCompatActivity {
         button_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(getApplicationContext(), TempActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -159,7 +159,7 @@ public class Vault extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Vault.this.finish();
+        VaultScreen.this.finish();
         System.exit(0);
 
     }

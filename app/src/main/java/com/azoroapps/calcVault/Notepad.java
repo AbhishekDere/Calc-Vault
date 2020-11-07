@@ -37,6 +37,6 @@ public class Notepad extends AppCompatEditText {
 //            canvas.drawLine(5, i, getWidth(), i, paint);
 //        }
 
-        setGravity(Gravity.TOP | Gravity.LEFT);
+        setGravity(Gravity.TOP | Gravity.START);
     }
 }

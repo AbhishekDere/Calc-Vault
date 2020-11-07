@@ -1,6 +1,5 @@
 package com.azoroapps.calcVault.view;
 
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -24,10 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.File;
 import java.io.IOException;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecordingListFragment extends Fragment implements AudioListAdapter.onItemListClick {
 
     private ConstraintLayout playerSheet;
@@ -51,7 +46,9 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
     private SeekBar playerSeekbar;
     private Handler seekbarHandler;
     private Runnable updateSeekbar;
-
+    //Extra Buttons
+    private ImageButton nextBtn;
+    private ImageButton prevBtn;
     public RecordingListFragment() {
         // Required empty public constructor
     }
@@ -79,6 +76,11 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Recordings/";
         File directory = new File(path);
         allFiles = directory.listFiles();
+
+        nextBtn=view.findViewById(R.id.nextBtn);
+        prevBtn=view.findViewById(R.id.prevBtn);
+        nextBtn.setVisibility(View.GONE);
+        prevBtn.setVisibility(View.GONE);
 
         audioListAdapter = new AudioListAdapter(allFiles, this);
 

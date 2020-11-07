@@ -1,15 +1,17 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
-import static com.azoroapps.calcVault.Utils.getImgURL;
+import static com.azoroapps.calcVault.utilities.Utils.getImgURL;
+
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.model.Server;
 public class SharedPreference {
 
     private static final String APP_PREFS_NAME = "CakeVPNPreference";
 
-    private SharedPreferences mPreference;
-    private SharedPreferences.Editor mPrefEditor;
-    private Context context;
+    private final SharedPreferences mPreference;
+    private final SharedPreferences.Editor mPrefEditor;
+    private final Context context;
 
     private static final String SERVER_COUNTRY = "server_country";
     private static final String SERVER_FLAG = "server_flag";

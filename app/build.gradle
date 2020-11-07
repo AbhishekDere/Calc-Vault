@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'net.objecthunter:exp4j:0.4.8'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     //CardView
     implementation 'com.android.support:cardview-v7:28'
     //RecyclerView
@@ -48,9 +48,9 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'com.android.support:support-v4:28.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
@@ -66,13 +66,38 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-android'
     //Google Login
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation ('com.google.apis:google-api-services-drive:v3-rev110-1.23.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    implementation ('com.google.api-client:google-api-client-android:1.26.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+
     //Android JetPack
-    def nav_version = "2.3.0"
-    implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-fragment:2.3.1"
+    implementation "androidx.navigation:navigation-ui:2.3.1"
     //MDC Material Design Component
     implementation 'com.google.android.material:material:1.2.1'
     //IDK
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    //Zip Library to extract and zip
+    compile 'com.github.ghost1372:Mzip-Android:0.4.0'
     implementation project(path: ':vpnLib')
+    android {
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/license.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/NOTICE.txt'
+            exclude 'META-INF/notice.txt'
+            exclude 'META-INF/ASL2.0'
+            exclude("META-INF/*.kotlin_module")
+        }
+    }
+
 }

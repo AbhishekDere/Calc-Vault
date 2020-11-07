@@ -1,8 +1,8 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import android.net.Uri;
 
-public class VideoDetails {
+public class ImageDetails {
     public String name;
     public Uri uri;
 

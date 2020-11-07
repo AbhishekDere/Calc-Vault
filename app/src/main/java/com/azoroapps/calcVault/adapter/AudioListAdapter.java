@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.TimeAgo;
+import com.azoroapps.calcVault.utilities.TimeAgo;
 
 import java.io.File;
 
 public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.AudioViewHolder> {
 
-    private File[] allFiles;
+    private final File[] allFiles;
     private TimeAgo timeAgo;
 
-    private onItemListClick onItemListClick;
+    private final onItemListClick onItemListClick;
 
     public AudioListAdapter(File[] allFiles, onItemListClick onItemListClick) {
         this.allFiles = allFiles;
@@ -51,9 +51,9 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
 
     public class AudioViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView list_image;
-        private TextView list_title;
-        private TextView list_date;
+        private final ImageView list_image;
+        private final TextView list_title;
+        private final TextView list_date;
 
         public AudioViewHolder(@NonNull View itemView) {
             super(itemView);
