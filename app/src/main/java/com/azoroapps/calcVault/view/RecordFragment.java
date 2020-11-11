@@ -59,9 +59,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
         recordBtn = view.findViewById(R.id.record_btn);
         timer = view.findViewById(R.id.record_timer);
         filenameText = view.findViewById(R.id.record_filename);
-        /* Setting up on click listener
-           - Class must implement 'View.OnClickListener' and override 'onClick' method
-         */
+
         listBtn.setOnClickListener(this);
         recordBtn.setOnClickListener(this);
     }

@@ -1,6 +1,7 @@
 package com.azoroapps.calcVault.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +10,23 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.azoroapps.calcVault.FullScreenActivity;
 import com.azoroapps.calcVault.view.ImageDetails;
 import com.azoroapps.calcVault.R;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
-import es.dmoral.toasty.Toasty;
-
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
     Context context;
     public ArrayList<ImageDetails> images;
+    public ArrayList<String> imageLocation;
+    ImageDetails obj;
+    String[] names;
 
-    public PhotosAdapter(Context context, ArrayList<ImageDetails> image) {
+    public PhotosAdapter(Context context, ArrayList<ImageDetails> image, String[] names) {
         this.context=context;
         this.images=image;
+        this.names=names;
     }
 
     @NonNull
@@ -35,13 +39,17 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
-        ImageDetails obj = images.get(position);
-        Glide.with(context).load(obj.getUri()).placeholder(R.drawable.placeholder).override(35,35).into(holder.imageView);
+        obj = images.get(position);
+        Glide.with(context).load(obj.getUri()).placeholder(R.drawable.placeholder).into(holder.imageView);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toasty.success(context,"Selected "+images.get(position).getName(),Toasty.LENGTH_SHORT).show();
-
+                //Full Screen Activity
+                Intent i = new Intent(context, FullScreenActivity.class);
+                i.putExtra("images", names);
+                i.putExtra("position",position);
+                context.startActivity(i);
+                //Toasty.success(context,"Selected "+images.get(position).getName(),Toasty.LENGTH_SHORT).show();
             }
         });
     }

@@ -13,7 +13,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -23,28 +24,48 @@
         android:roundIcon="@mipmap/lock_logo"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".view.Calculator" android:screenOrientation="portrait" />
-        <activity android:name=".view.VaultScreen" android:screenOrientation="portrait"/>
-        <activity android:name=".view.NotesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".FullScreenActivity"></activity>
+        <activity android:name=".view.SettingsActivity" />
+        <activity
+            android:name=".view.Calculator"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.VaultScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.NotesActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".EditFileActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".view.VpnActivity" />
-        <activity android:name=".ImageViewer" android:screenOrientation="portrait"/>
-        <activity android:name=".view.Videos" android:screenOrientation="portrait" />
-        <activity android:name=".view.MusicPlayer" android:screenOrientation="portrait"/>
-        <activity android:name=".view.Recordings" android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".view.Videos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.MusicPlayer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.Recordings"
+            android:screenOrientation="portrait" />
         <activity android:name=".NewUser" />
         <activity android:name=".DriveActivity" />
-        <activity android:name=".view.LoginActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".view.WelcomeActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".view.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.Photos" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.Photos"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.Album"
             android:label="@string/title_activity_albums" />
@@ -74,8 +95,9 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-
-        <service android:name=".view.BackgroundSoundService" android:enabled="true" />
+        <service
+            android:name=".view.BackgroundSoundService"
+            android:enabled="true" />
     </application>
 
 </manifest>

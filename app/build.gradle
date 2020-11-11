@@ -10,6 +10,7 @@ android {
     defaultConfig {
         applicationId "com.azoroapps.calcVault"
         minSdkVersion 21
+        //noinspection OldTargetApi
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -30,6 +31,16 @@ android {
         dataBinding true
         // for view binding:
         // viewBinding true
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
     }
 }
 dependencies {
@@ -64,18 +75,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     //Guava
     implementation 'com.google.guava:guava:29.0-android'
-    //Google Login
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
-    implementation ('com.google.apis:google-api-services-drive:v3-rev110-1.23.0')
-            {
-                exclude group: 'org.apache.httpcomponents'
-            }
-    implementation ('com.google.api-client:google-api-client-android:1.26.0')
-            {
-                exclude group: 'org.apache.httpcomponents'
-            }
-    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-
     //Android JetPack
     implementation "androidx.navigation:navigation-fragment:2.3.1"
     implementation "androidx.navigation:navigation-ui:2.3.1"
@@ -84,20 +83,23 @@ dependencies {
     //IDK
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
     //Zip Library to extract and zip
-    compile 'com.github.ghost1372:Mzip-Android:0.4.0'
-    implementation project(path: ':vpnLib')
-    android {
-        packagingOptions {
-            exclude 'META-INF/DEPENDENCIES'
-            exclude 'META-INF/LICENSE'
-            exclude 'META-INF/LICENSE.txt'
-            exclude 'META-INF/license.txt'
-            exclude 'META-INF/NOTICE'
-            exclude 'META-INF/NOTICE.txt'
-            exclude 'META-INF/notice.txt'
-            exclude 'META-INF/ASL2.0'
-            exclude("META-INF/*.kotlin_module")
-        }
+    implementation 'com.github.ghost1372:Mzip-Android:0.4.0'
+
+    //ImageSlider
+    implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'
+
+    //Google Drive API
+    // g drive libs
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+    implementation('com.google.api-client:google-api-client-android:1.26.0') {
+        exclude group: 'org.apache.httpcomponents'
     }
+    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+
+    implementation project(path: ':vpnLib')
+
 
 }

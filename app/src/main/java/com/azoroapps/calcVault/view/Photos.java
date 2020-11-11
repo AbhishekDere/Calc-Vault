@@ -41,6 +41,8 @@ public class Photos extends AppCompatActivity {
     PhotosAdapter photosAdapter;
     ArrayList<ImageDetails> img = new ArrayList<>();
     ImageDetails imageDetails;
+    ArrayList<String> imageLocation=new ArrayList<>();
+    String[] names;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class Photos extends AppCompatActivity {
     }
 
     private void listingPhotos() {
-        photosAdapter = new PhotosAdapter(this, getData());
+        photosAdapter = new PhotosAdapter(this, getData(),names);
         recyclerView = findViewById(R.id.photo_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -69,6 +71,11 @@ public class Photos extends AppCompatActivity {
                 imageDetails.setName(file.getName());
                 imageDetails.setUri(Uri.fromFile(file));
                 img.add(imageDetails);
+                //imageLocation.add(Uri.fromFile(file).toString());
+            }
+            names = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                names[i] = files[i].getPath();
             }
         }
         return img;
