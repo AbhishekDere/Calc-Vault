@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/lock_logo"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
-        <activity android:name=".FullScreenActivity"></activity>
+        <activity android:name=".FullScreenActivity" />
         <activity android:name=".view.SettingsActivity" />
         <activity
             android:name=".view.Calculator"
@@ -95,9 +95,6 @@
                 <action android:name="android.net.VpnService" />
             </intent-filter>
         </service>
-        <service
-            android:name=".view.BackgroundSoundService"
-            android:enabled="true" />
     </application>
 
 </manifest>

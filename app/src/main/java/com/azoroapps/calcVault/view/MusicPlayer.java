@@ -163,12 +163,8 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
         if(isPlaying){
             stopAudio();
             playAudio(fileToPlay);
-            Intent myService = new Intent(MusicPlayer.this, BackgroundSoundService.class);
-            startService(myService);
         } else {
             playAudio(fileToPlay);
-            Intent myService = new Intent(MusicPlayer.this, BackgroundSoundService.class);
-            startService(myService);
         }
     }
 
@@ -206,8 +202,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             mediaPlayer.setScreenOnWhilePlaying(true);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            Intent myService = new Intent(MusicPlayer.this, BackgroundSoundService.class);
-            startService(myService);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

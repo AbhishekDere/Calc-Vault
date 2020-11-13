@@ -14,14 +14,15 @@ import com.azoroapps.calcVault.FullScreenActivity;
 import com.azoroapps.calcVault.view.ImageDetails;
 import com.azoroapps.calcVault.R;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
     Context context;
     public ArrayList<ImageDetails> images;
-    public ArrayList<String> imageLocation;
     ImageDetails obj;
-    String[] names;
+    public String[] names;
 
     public PhotosAdapter(Context context, ArrayList<ImageDetails> image, String[] names) {
         this.context=context;
@@ -40,17 +41,15 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
         obj = images.get(position);
-        Glide.with(context).load(obj.getUri()).placeholder(R.drawable.placeholder).into(holder.imageView);
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Full Screen Activity
-                Intent i = new Intent(context, FullScreenActivity.class);
-                i.putExtra("images", names);
-                i.putExtra("position",position);
-                context.startActivity(i);
-                //Toasty.success(context,"Selected "+images.get(position).getName(),Toasty.LENGTH_SHORT).show();
-            }
+        Glide.with(context).load(obj.getUri()).centerInside().placeholder(R.drawable.placeholder).into(holder.imageView);
+       // holder.imageView.setPadding(10,10,10,10);
+
+        holder.imageView.setOnClickListener(v -> {
+            //Full Screen Activity
+            Intent i = new Intent(context, FullScreenActivity.class);
+            i.putExtra("images", names);
+            i.putExtra("position",position);
+            context.startActivity(i);
         });
     }
 
@@ -67,7 +66,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewH
             super(itemView);
             linearLayout = itemView.findViewById(R.id.video_layout);
             imageView = itemView.findViewById(R.id.image);
-            imageView.setPadding(10,10,10,5);
         }
     }
 }

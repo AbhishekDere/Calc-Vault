@@ -117,7 +117,7 @@ public class Videos extends AppCompatActivity {
             ClipData clipData = data.getClipData();
             String outputPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Videos/";
             if(clipData==null){
-                //Single Image Selection
+                //Single Video Selection
                 Uri uri = data.getData();
                 assert uri != null;
                 String lp;
@@ -129,7 +129,7 @@ public class Videos extends AppCompatActivity {
                 moveFile(inputPath,inputFile,outputPath);
             }
             else{
-                //Multiple Images Selection
+                //Multiple Videos Selection
                 for (int i = 0; i < clipData.getItemCount(); i++) {
                     Uri uri = clipData.getItemAt(i).getUri();
                     String path;
@@ -142,6 +142,8 @@ public class Videos extends AppCompatActivity {
                 }
             }
         }
+        finish();
+        startActivity(getIntent());
     }
 
     private void moveFile(String inputPath, String inputFile, String outputPath) {

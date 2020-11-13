@@ -98,7 +98,7 @@ dependencies {
     implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-
+    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
     implementation project(path: ':vpnLib')
 
 

@@ -41,14 +41,11 @@ public class Photos extends AppCompatActivity {
     PhotosAdapter photosAdapter;
     ArrayList<ImageDetails> img = new ArrayList<>();
     ImageDetails imageDetails;
-    ArrayList<String> imageLocation=new ArrayList<>();
     String[] names;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
-        Intent intent = getIntent();
-        String albumName = Objects.requireNonNull(intent.getExtras()).getString("AlbumName");
         listingPhotos();
     }
 
@@ -56,7 +53,7 @@ public class Photos extends AppCompatActivity {
         photosAdapter = new PhotosAdapter(this, getData(),names);
         recyclerView = findViewById(R.id.photo_id);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(photosAdapter);
     }
 
@@ -98,7 +95,6 @@ public class Photos extends AppCompatActivity {
     public void launchGalleryIntent() {
         Intent i = getIntent();
         String albumName = Objects.requireNonNull(i.getExtras()).getString("AlbumName");
-        String fullPath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/Vault/Photos/"+albumName;
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -149,7 +145,10 @@ public class Photos extends AppCompatActivity {
                 }
             }
         }
+        finish();
+        startActivity(getIntent());
     }
+
 
     private void moveFile(String inputPath, String inputFile, String outputPath) {
         InputStream in;
@@ -177,7 +176,7 @@ public class Photos extends AppCompatActivity {
             out.flush();
             out.close();
             // delete the original file
-            boolean l = new File(inputPath + inputFile).delete();
+            new File(inputPath + inputFile).delete();
             //Toasty.info(this,"Files Hidden, Please Delete the Original Images",Toasty.LENGTH_SHORT).show();
         }
         catch (FileNotFoundException f) {

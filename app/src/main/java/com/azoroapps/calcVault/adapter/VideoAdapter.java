@@ -1,10 +1,14 @@
 package com.azoroapps.calcVault.adapter;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +24,15 @@ import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.view.VideoDetails;
 import com.bumptech.glide.Glide;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolder> {
     Context context;
@@ -58,17 +70,24 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
                 popup.inflate(R.menu.menu_longclickoptions);
                 //adding click listener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        File file = new File(obj.getUri().getPath());
                         switch (item.getItemId()) {
-                            case R.id.option_1:
-                                //handle menu1 click
+                            case R.id.option_delete:
+                                    boolean b =file.delete();
+                                    if(b){
+                                        videos.remove(holder.getAdapterPosition());
+                                        notifyItemRemoved(holder.getAdapterPosition());
+                                        Toasty.info(context,"Deleted "+file.getName(),Toasty.LENGTH_LONG).show();
+                                    }
                                 break;
-                            case R.id.option_2:
-                                //handle menu2 click
-                                break;
-                            case R.id.option_3:
-                                //handle menu3 click
+                            case R.id.option_unhide:
+                                moveFile(file.getParent()+"/", file.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
+                                videos.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                Toasty.success(context,"Video is Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();
                                 break;
                         }
                         return false;
@@ -109,6 +128,41 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             super(itemView);
             icon= itemView.findViewById(R.id.video_icon);
             videoName=itemView.findViewById(R.id.videoTitle);
+        }
+    }
+    private void moveFile(String inputPath, String inputFile, String outputPath) {
+        InputStream in;
+        OutputStream out;
+        try {
+            //create output directory if it doesn't exist
+            File dir = new File (outputPath);
+            if (!dir.exists())
+            {
+                boolean b =dir.mkdirs();
+                if(b){
+                    Toasty.info(context,"Hiding Images",Toasty.LENGTH_SHORT).show();
+                }
+            }
+            in = new FileInputStream(inputPath + inputFile);
+            out = new FileOutputStream(outputPath + inputFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            // write the output file
+            out.flush();
+            out.close();
+            // delete the original file
+            boolean l = new File(inputPath + inputFile).delete();
+        }
+        catch (FileNotFoundException f) {
+            Log.e("File", f.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
         }
     }
 }
