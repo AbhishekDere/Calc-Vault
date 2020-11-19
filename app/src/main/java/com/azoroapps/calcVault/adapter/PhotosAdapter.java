@@ -14,7 +14,6 @@ import com.azoroapps.calcVault.FullScreenActivity;
 import com.azoroapps.calcVault.view.ImageDetails;
 import com.azoroapps.calcVault.R;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

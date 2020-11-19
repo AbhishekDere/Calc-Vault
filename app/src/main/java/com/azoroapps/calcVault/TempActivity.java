@@ -11,7 +11,7 @@ import es.dmoral.toasty.Toasty;
 import ir.mahdi.mzip.zip.ZipArchive;
 import static com.azoroapps.calcVault.NewUser.SHARED_PREFS;
 
-public class TempActivity extends AppCompatActivity {
+public class TempActivity extends AppCompatActivity{
     String loc = ".Vault";
     File file = new File(Environment.getExternalStorageDirectory() + "/" + loc+"/");
     File destination = new File(Environment.getExternalStorageDirectory().getPath()+"/AndroidFiles.zip");
