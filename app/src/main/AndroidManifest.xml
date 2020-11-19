@@ -42,6 +42,7 @@
 
         <activity
             android:name=".view.Videos"
+            android:theme="@style/NormalLight.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.MusicPlayer"

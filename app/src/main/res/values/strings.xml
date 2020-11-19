@@ -106,4 +106,10 @@
     <string name="press_mic">Press the mic button \n to start recording</string>
     <string name="kk">kk</string>
     <string name="hh">hh</string>
+    <string name="_0_items_selected">0 items Selected</string>
+    <string name="unhide">Unhide</string>
+    <string name="un_hide">un-Hide</string>
+    <string name="deletee">Delete</string>
+    <string name="share">Share</string>
+    <string name="add_new_videos">Add New Videos</string>
 </resources>

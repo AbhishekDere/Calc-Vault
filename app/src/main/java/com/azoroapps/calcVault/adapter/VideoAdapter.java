@@ -1,3 +1,4 @@
+
 package com.azoroapps.calcVault.adapter;
 
 import android.annotation.SuppressLint;
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.view.VideoDetails;
+import com.azoroapps.calcVault.view.Videos;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -38,10 +42,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
     Context context;
     ArrayList<VideoDetails> videos;
     View view;
+    Videos vid;
 
     public VideoAdapter(Context context, ArrayList<VideoDetails> videos){
         this.context=context;
         this.videos=videos;
+        vid=(Videos)context;
     }
 
     @NonNull
@@ -52,7 +58,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         builder.detectFileUriExposure();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         view=layoutInflater.inflate(R.layout.video_list, parent,false);
-        return new myVideoHolder(view);
+        return new myVideoHolder(view,vid);
     }
     @Override
     public void onBindViewHolder(@NonNull myVideoHolder holder, int position) {
@@ -61,7 +67,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         holder.videoName.setText(obj.getName());
         holder.view.setBackgroundColor(obj.isSelected() ? Color.CYAN : Color.WHITE);
         //onClicks on very item
-        holder.videoName.setOnClickListener(v -> playVideo(obj.getUri()));
+        holder.view.setOnClickListener(v -> playVideo(obj.getUri()));
         holder.more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,20 +103,30 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
                 popup.show();
             }
         });
-        holder.icon.setOnClickListener(new View.OnClickListener() {
+
+        if(!vid.is_in_action_mode){
+            holder.checkBox.setVisibility(View.GONE);
+            holder.more_btn.setVisibility(View.VISIBLE);
+        }
+        else if(vid.is_in_action_mode){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setChecked(false);
+            holder.more_btn.setVisibility(View.GONE);
+        }
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.more_btn.setVisibility(View.GONE);
-                obj.setSelected(!obj.isSelected());
-                holder.view.setBackgroundColor(obj.isSelected() ? Color.CYAN : Color.WHITE);
+                vid.prepareSelection(v,position);
             }
         });
     }
 
     protected void playVideo(Uri fileUri){
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(String.valueOf(fileUri)), "video/mp4");
-        context.startActivity(intent);
+        if(!vid.is_in_action_mode){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.parse(String.valueOf(fileUri)), "video/mp4");
+            context.startActivity(intent);
+        }
     }
 
     @Override
@@ -118,16 +134,53 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         return videos.size();
     }
 
-    public static class myVideoHolder extends RecyclerView.ViewHolder {
+    public void updateAdapter(ArrayList<VideoDetails> list ){
+        for(VideoDetails videoDetails:list){
+            //TODO (Remove the Files using
+            String path=videoDetails.getUri().getPath();
+            File f = new File(path);
+            videos.remove(videoDetails);
+            f.delete();
+            Toasty.success(context,"Videos are Deleted Successfully",Toasty.LENGTH_LONG).show();
+        }
+        notifyDataSetChanged();
+    }
+
+    public void unHideAdapter(ArrayList<VideoDetails> list ){
+        for(VideoDetails videoDetails:list){
+            //TODO (Remove the Files using
+            String path=videoDetails.getUri().getPath();
+            File f = new File(path);
+            videos.remove(videoDetails);
+            moveFile(f.getParent()+"/", f.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
+            Toasty.success(context,"Videos are Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();        }
+        notifyDataSetChanged();
+    }
+
+    public static class myVideoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView icon;
         TextView videoName;
-        View view = itemView.findViewById(R.id.video_layout);
-        ImageView more_btn= itemView.findViewById(R.id.ic_more_btn);
+        CheckBox checkBox;
+        View view;
+        ImageView more_btn;
+        Videos vid;
 
-        public myVideoHolder(@NonNull View itemView) {
+        public myVideoHolder(@NonNull View itemView, Videos v) {
             super(itemView);
+            more_btn= itemView.findViewById(R.id.ic_more_btn);
+            view = itemView.findViewById(R.id.video_layout);
             icon= itemView.findViewById(R.id.video_icon);
             videoName=itemView.findViewById(R.id.videoTitle);
+            checkBox=itemView.findViewById(R.id.checkbox_video);
+            this.vid=v;
+            view.setOnLongClickListener(vid);
+            checkBox.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            videoName.setOnClickListener(null);
+            icon.setOnClickListener(null);
+            vid.prepareSelection(v.getRootView(),getAdapterPosition());
         }
     }
     private void moveFile(String inputPath, String inputFile, String outputPath) {

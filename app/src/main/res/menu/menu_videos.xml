@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/AddNewVideos"
-        android:title="@string/add_videos"
-        app:showAsAction="ifRoom"
-        />
+        android:title="Add New Videos"
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/select_videos"
-        android:orderInCategory="100"
-        android:title="@string/select" />
+    android:id="@+id/video_share"
+    android:icon="@drawable/ic_action_share"
+    android:title="Share"
+    app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/video_select"
+        android:title="Select"
+        app:showAsAction="ifRoom"/>
+
 </menu>

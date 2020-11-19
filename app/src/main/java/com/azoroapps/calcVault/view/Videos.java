@@ -2,6 +2,7 @@ package com.azoroapps.calcVault.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.RealPathUtil;
@@ -32,32 +33,42 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class Videos extends AppCompatActivity {
+public class Videos extends AppCompatActivity implements View.OnLongClickListener{
     File videoPath= new File((Environment.getExternalStorageDirectory().getPath() + "/.Vault/.Videos/"));
     ArrayList<VideoDetails> vid = new ArrayList<>();
     VideoDetails videoDetails;
     RecyclerView recyclerView;
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public boolean is_in_action_mode=false;
+    TextView counter_text_view;
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    VideoAdapter videoAdapter;
+    Toolbar toolbar;
+    ArrayList<VideoDetails> selection_list= new ArrayList<>();
+    ArrayList<Uri> videoUris=new ArrayList<>();
+    int counter=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_videos);
+        toolbar=findViewById(R.id.toolbar_selection);
+        setSupportActionBar(toolbar);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_videos);
+        counter_text_view=findViewById(R.id.counter_text);
         listingVideos();
     }
 
     private void listingVideos() {
-        VideoAdapter videoAdapter=new VideoAdapter(this,getData());
+        videoAdapter=new VideoAdapter(this,getData());
         recyclerView = findViewById(R.id.recyclerView_video);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -80,7 +91,7 @@ public class Videos extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_videos, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -88,10 +99,72 @@ public class Videos extends AppCompatActivity {
         if (item.getItemId() == R.id.AddNewVideos) {
             launchGalleryIntent();
         }
-        if(item.getItemId()==R.id.select_videos){
-            //TODO
+        else if(item.getItemId()==R.id.video_select){
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.menu_action_mode);
+            counter_text_view.setVisibility(View.VISIBLE);
+            is_in_action_mode=true;
+            videoAdapter.notifyDataSetChanged();
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
-        return super.onOptionsItemSelected(item);
+        else if(item.getItemId()==R.id.video_delete){
+            is_in_action_mode=false;
+            videoAdapter.updateAdapter(selection_list);
+            clearActionMode();
+        }
+        else if(item.getItemId()==R.id.video_unHide){
+            is_in_action_mode=false;
+            videoAdapter.unHideAdapter(selection_list);
+            clearActionMode();
+        }
+        else if (item.getItemId()==R.id.video_share){
+            is_in_action_mode=false;
+            videoAdapter.unHideAdapter(selection_list);
+            clearActionMode();
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,videoUris);
+            shareIntent.setType("video/*");
+            startActivity(Intent.createChooser(shareIntent, "Share Videos to.."));
+        }
+        else if(item.getItemId()==android.R.id.home){
+            clearActionMode();
+            videoAdapter.notifyDataSetChanged();
+        }
+        return true;
+    }
+    public void clearActionMode(){
+        is_in_action_mode=false;
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.menu_videos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        counter_text_view.setVisibility(View.GONE);
+        counter_text_view.setText("0 Items Selected");
+        counter=0;
+        selection_list.clear();
+    }
+
+    public void prepareSelection(View view, int position){
+        if(((CheckBox)view).isChecked()){
+            selection_list.add(vid.get(position));
+            counter=counter+1;
+            videoUris.add(vid.get(position).getUri());
+        }
+        else{
+            selection_list.remove(vid.get(position));
+            videoUris.remove(vid.get(position).getUri());
+            counter=counter-1;
+        }
+        updateCounter(counter);
+    }
+    public void updateCounter(int counter){
+        if(counter==0){
+            counter_text_view.setText("0 Items Selected");
+        }
+        else{
+            counter_text_view.setText(counter+"Items Selected");
+        }
+
     }
 
     public void launchGalleryIntent() {
@@ -173,12 +246,36 @@ public class Videos extends AppCompatActivity {
             out.close();
             // delete the original file
             boolean l = new File(inputPath + inputFile).delete();
+            if(l)
+                Toasty.success(this,"Deleted",Toasty.LENGTH_SHORT).show();
         }
         catch (FileNotFoundException f) {
             Log.e("File", f.getMessage());
         }
         catch (Exception e) {
             Log.e("tag", e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.menu_action_mode);
+        counter_text_view.setVisibility(View.VISIBLE);
+        is_in_action_mode=true;
+        videoAdapter.notifyDataSetChanged();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(is_in_action_mode){
+            clearActionMode();
+            videoAdapter.notifyDataSetChanged();
+        }
+        else {
+            super.onBackPressed();
         }
     }
 }

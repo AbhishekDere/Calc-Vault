@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/video_share"
+        android:icon="@drawable/ic_action_share"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/video_delete"
+        android:icon="@drawable/ic_action_delete"
+        android:title="@string/deletee"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/video_unHide"
+        android:title="@string/un_hide"
+        app:showAsAction="ifRoom"/>
+
+</menu>
