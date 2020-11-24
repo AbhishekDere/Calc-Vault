@@ -118,6 +118,7 @@ public class NewUser extends AppCompatActivity {
                 .Builder(NewUser.this);
         builder.setMessage(bla);
         builder.setCancelable(false);
+
         // Set Alert Title
         builder.setTitle("Great");
         builder

@@ -100,6 +100,6 @@ dependencies {
     }
     implementation 'com.github.chrisbanes:PhotoView:2.2.0'
     implementation project(path: ':vpnLib')
-
-
+    //Music PLayer
+    implementation 'com.github.jeancsanchez:JcPlayer:2.6.16'
 }

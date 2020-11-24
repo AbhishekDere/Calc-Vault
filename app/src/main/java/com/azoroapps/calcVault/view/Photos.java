@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.azoroapps.calcVault.R;
+import com.azoroapps.calcVault.adapter.AlbumAdapter;
 import com.azoroapps.calcVault.utilities.RealPathUtil;
 import com.azoroapps.calcVault.adapter.PhotosAdapter;
 
@@ -149,6 +150,12 @@ public class Photos extends AppCompatActivity {
         startActivity(getIntent());
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),Album.class);
+        startActivity(intent);
+    }
 
     private void moveFile(String inputPath, String inputFile, String outputPath) {
         InputStream in;

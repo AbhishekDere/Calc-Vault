@@ -30,16 +30,19 @@
         <activity android:name=".view.SettingsActivity" />
         <activity
             android:name=".view.Calculator"
+            android:label="calculator"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.VaultScreen"
+            android:label="Vault Screen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.NotesActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".EditFileActivity" />
         <activity android:name=".EditActivity" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".AddActivity"
+            />
         <activity android:name=".view.VpnActivity" />
 
         <activity

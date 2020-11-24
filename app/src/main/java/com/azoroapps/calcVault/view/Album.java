@@ -1,6 +1,7 @@
 package com.azoroapps.calcVault.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -77,6 +78,14 @@ public class Album extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent= new Intent(getApplicationContext(),VaultScreen.class);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==(R.id.AddNew)){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -88,7 +97,6 @@ public class Album extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     boolean b;
                     String value = String.valueOf(input.getText());
-
                     File file= new File(path+"/."+value);
                     try{
                         if(!file.exists())

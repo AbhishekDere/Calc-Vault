@@ -1,14 +1,21 @@
 package com.azoroapps.calcVault;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.azoroapps.calcVault.utilities.FileItem;
 import com.azoroapps.calcVault.view.NotesActivity;
@@ -21,8 +28,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EditActivity extends AppCompatActivity {
+import es.dmoral.toasty.Toasty;
 
+public class EditActivity extends AppCompatActivity {
+    String strFileName;
     public static final String KEY_NAME = "fileName";
     public static final String KEY_INFO = "noteInfo";
     public static final String KEY_POSITION = "clickedPosition";
@@ -61,13 +70,6 @@ public class EditActivity extends AppCompatActivity {
             //or formatting date in desired way
             Date date = new Date(fl.lastModified());
 
-//            int hourOfDay=0;
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mmm:ss a");
-//            Calendar dateTime = Calendar.getInstance();
-//            dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-
-            //now making fl.length() kb/mb/gb....
-
             String size = convertSizeLong(fl.length());
 
             fileItems.add(new FileItem(R.drawable.ic_writing,fl.getName(),""+(new SimpleDateFormat("dd-MMM-yyyy HH-mm-ss").format(date)),""+size,""));
@@ -84,39 +86,49 @@ public class EditActivity extends AppCompatActivity {
 
                 String strFileName = clickedItem.txtFlName;
 
-
-//                //Reading file here: opening file by the name of the file
-//                StringBuilder builder = new StringBuilder();
-//                FileInputStream fis = null;
-//                try {
-//                    fis = openFileInput(strFileName);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                while (true){
-//                    int ch = 0;
-//                    try {
-//                        ch = fis.read();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if(ch == -1) break;
-//                    else {
-//                        builder.append((char)ch);
-//                    }
-//                }
-//
-//                String strNoteInfo = builder.toString();
-
-                //putting file's name and notepad text into bundles
                 Bundle bundle=new Bundle();
 
-                //bundle.putInt(KEY_POSITION,position);
                 bundle.putString(KEY_NAME,strFileName);
-                //bundle.putString(KEY_INFO,strNoteInfo);
 
                 startActivity(new Intent(EditActivity.this,EditFileActivity.class).putExtras(bundle));
+            }
+        });
+        ((ListView) findViewById(R.id.lstListOfFiles)).setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //TODO use the long CLick options menu and set it up to perform operations
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder((EditActivity.this));
+                builder.setIcon(R.drawable.ic_error_48px);
+                builder.setTitle("Warning: Delete");
+                builder.setMessage("    Delete the file permanently ?");
+
+                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String filePath = getFilesDir().getAbsolutePath();
+                        File file = new File(filePath, String.valueOf(fileItems.get(position)));
+                        Boolean deletedFileStatus = file.delete();
+                        if(deletedFileStatus)
+                            Toast.makeText(EditActivity.this,"Note Deleted",Toast.LENGTH_SHORT).show();
+                        //gotoMainActivity();
+
+                    }
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+
+                builder.create().show();
+
+                Toasty.success(EditActivity.this,"CLicked on"+fileItems.get(position).txtFlName,Toasty.LENGTH_SHORT).show();
+                return false;
             }
         });
 

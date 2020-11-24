@@ -21,7 +21,7 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_notes);
 
         final List<MyItem> dataset = new ArrayList<>();
         dataset.add(new MyItem(R.drawable.ic_plus,"Add Note"));
@@ -50,12 +50,11 @@ public class NotesActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//
-//        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-//            ((GridView)findViewById(R.id.grdLayout)).setNumColumns(2);
-//        }
-//    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent= new Intent(getApplicationContext(),VaultScreen.class);
+        startActivity(intent);
+    }
 }

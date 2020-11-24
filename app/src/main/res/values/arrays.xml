@@ -31,6 +31,11 @@
         <item>Light</item>
     </string-array>
 
+    <string-array name="choice_items">
+        <item>Delete (Permanently)</item>
+        <item>un-Hide(Send Back to Gallery)</item>
+        <item>Rename Album</item>
+    </string-array>
 
 
 </resources>

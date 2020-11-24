@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
@@ -50,6 +51,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+    ConstraintLayout musicplayerlayout;
     private ImageButton nextBtn;
     private TextView playerHeader;
     private TextView playerFilename;
@@ -76,7 +78,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
         nextBtn.setVisibility(View.GONE);
         prevBtn.setVisibility(View.GONE);
         File[] allFiles = directory.listFiles();
-        AudioListAdapter audioListAdapter = new AudioListAdapter(allFiles, this);
+        AudioListAdapter audioListAdapter = new AudioListAdapter(allFiles, this,getApplicationContext());
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         audioList.setAdapter(audioListAdapter);
@@ -125,7 +127,6 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
                 resumeAudio();
             }
         });
-
     }
 
     private void createFolder() {

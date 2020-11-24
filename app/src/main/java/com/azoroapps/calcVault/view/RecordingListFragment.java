@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.File;
 import java.io.IOException;
 
-public class RecordingListFragment extends Fragment implements AudioListAdapter.onItemListClick {
+public class RecordingListFragment extends Fragment implements AudioListAdapter.onItemListClick, View.OnLongClickListener{
 
     private ConstraintLayout playerSheet;
     private BottomSheetBehavior bottomSheetBehavior;
@@ -82,7 +82,7 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
         nextBtn.setVisibility(View.GONE);
         prevBtn.setVisibility(View.GONE);
 
-        audioListAdapter = new AudioListAdapter(allFiles, this);
+        audioListAdapter = new AudioListAdapter(allFiles, this,getContext());
 
         audioList.setHasFixedSize(true);
         audioList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -114,6 +114,7 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
                 }
             }
         });
+
 
         playerSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -221,5 +222,10 @@ public class RecordingListFragment extends Fragment implements AudioListAdapter.
         if(isPlaying) {
             stopAudio();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return false;
     }
 }
