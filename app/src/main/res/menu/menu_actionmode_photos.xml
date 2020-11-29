@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/AddNewVideos"
-        android:title="Add New Videos"
+        android:id="@+id/photo_delete"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/delete_photos"
         app:showAsAction="always"/>
-
     <item
-        android:id="@+id/video_select"
-        android:title="Select"
+        android:id="@+id/photo_unHide"
+        android:title="@string/un_hide_photos"
         app:showAsAction="ifRoom"/>
-
 </menu>

@@ -112,4 +112,6 @@
     <string name="deletee">Delete</string>
     <string name="share">Share</string>
     <string name="add_new_videos">Add New Videos</string>
+    <string name="un_hide_photos">Un-Hide</string>
+    <string name="delete_photos">Delete</string>
 </resources>

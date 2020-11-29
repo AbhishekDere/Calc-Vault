@@ -60,7 +60,7 @@ public class MusicPlayer extends AppCompatActivity implements AudioListAdapter.o
     private Runnable updateSeekbar;
     private ImageButton prevBtn;
     //Path
-    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Music");
+    File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/.Vault/.Music/");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

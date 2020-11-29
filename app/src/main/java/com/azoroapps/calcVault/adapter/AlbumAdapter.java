@@ -80,7 +80,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
             Intent intent = new Intent(context, Photos.class);
             intent.putExtra("AlbumName",albumName);
             context.startActivity(intent);
-            Toasty.success(context,"Clicked on "+albumName,Toasty.LENGTH_SHORT).show();
             ((Album)context).finish();
         });
 

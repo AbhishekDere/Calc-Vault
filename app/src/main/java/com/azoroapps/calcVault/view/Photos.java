@@ -7,11 +7,18 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,29 +41,42 @@ import es.dmoral.toasty.Toasty;
 
 public class Photos extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static final String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+    private static final String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public boolean is_photos_in_action_mode=false;
+    TextView photos_counter_text_view;
+
     RecyclerView recyclerView;
     PhotosAdapter photosAdapter;
     ArrayList<ImageDetails> img = new ArrayList<>();
     ImageDetails imageDetails;
     String[] names;
+    ArrayList <ImageDetails>photo_selection_list=new ArrayList<>();
+    int photo_counter=0;
+    Toolbar toolbar_photos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
-        listingPhotos();
-    }
 
-    private void listingPhotos() {
+        toolbar_photos=findViewById(R.id.toolbar_photos);
+        setSupportActionBar(toolbar_photos);
+
+        photos_counter_text_view=findViewById(R.id.counter_text_photos);
+        photos_counter_text_view.setVisibility(View.GONE);
+
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
         photosAdapter = new PhotosAdapter(this, getData(),names);
         recyclerView = findViewById(R.id.photo_id);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(photosAdapter);
     }
+
+
 
     private ArrayList<ImageDetails> getData() {
         Intent intent = getIntent();
@@ -82,7 +102,7 @@ public class Photos extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_photos, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -90,7 +110,58 @@ public class Photos extends AppCompatActivity {
         if (item.getItemId() == R.id.AddNewPhotos) {
             launchGalleryIntent();
         }
-        return super.onOptionsItemSelected(item);
+        if(item.getItemId()==R.id.select_photos){
+            toolbar_photos.getMenu().clear();
+            toolbar_photos.inflateMenu(R.menu.menu_actionmode_photos);
+            photos_counter_text_view.setVisibility(View.VISIBLE);
+            is_photos_in_action_mode=true;
+            photosAdapter.notifyDataSetChanged();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        if(item.getItemId()==R.id.photo_delete){
+            Toasty.success(this,"TODO",Toasty.LENGTH_SHORT).show();
+            //TODO
+            photosAdapter.updateAdapter(photo_selection_list);
+            clearActionMode();
+            photosAdapter.notifyDataSetChanged();
+        }
+        else if(item.getItemId()==android.R.id.home){
+            clearActionMode();
+            photosAdapter.notifyDataSetChanged();
+        }
+        return true;
+    }
+
+    private void clearActionMode() {
+        is_photos_in_action_mode=false;
+        toolbar_photos.getMenu().clear();
+        toolbar_photos.inflateMenu(R.menu.menu_photos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        photos_counter_text_view.setVisibility(View.GONE);
+        photos_counter_text_view.setText("0 Items Selected");
+        photo_counter=0;
+        photo_selection_list.clear();
+    }
+
+    public void prepareSelection(View view,int position){
+        if(((CheckBox)view).isChecked()){
+            photo_selection_list.add(img.get(position));
+            photo_counter++;
+        }
+        else{
+            photo_selection_list.remove(img.get(position));
+            photo_counter--;
+        }
+        updateCounter(photo_counter);
+    }
+
+    public void updateCounter(int photo_counter){
+        if(photo_counter==0){
+            photos_counter_text_view.setText("0 Items Selected");
+        }
+        else{
+            photos_counter_text_view.setText(photo_counter+"items Selected");
+        }
     }
 
     public void launchGalleryIntent() {
@@ -152,9 +223,14 @@ public class Photos extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(),Album.class);
-        startActivity(intent);
+        if(is_photos_in_action_mode){
+            clearActionMode();
+            photosAdapter.notifyDataSetChanged();
+        }
+        else{
+            super.onBackPressed();
+        }
+
     }
 
     private void moveFile(String inputPath, String inputFile, String outputPath) {

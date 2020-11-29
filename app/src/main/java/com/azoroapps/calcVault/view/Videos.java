@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
-
+@SuppressLint("SetTextI18n")
 public class Videos extends AppCompatActivity implements View.OnLongClickListener{
     File videoPath= new File((Environment.getExternalStorageDirectory().getPath() + "/.Vault/.Videos/"));
     ArrayList<VideoDetails> vid = new ArrayList<>();
@@ -119,13 +120,9 @@ public class Videos extends AppCompatActivity implements View.OnLongClickListene
         }
         else if (item.getItemId()==R.id.video_share){
             is_in_action_mode=false;
-            videoAdapter.unHideAdapter(selection_list);
+            videoAdapter.shareAdapter(selection_list);
             clearActionMode();
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,videoUris);
-            shareIntent.setType("video/*");
-            startActivity(Intent.createChooser(shareIntent, "Share Videos to.."));
+
         }
         else if(item.getItemId()==android.R.id.home){
             clearActionMode();
@@ -133,11 +130,12 @@ public class Videos extends AppCompatActivity implements View.OnLongClickListene
         }
         return true;
     }
+
     public void clearActionMode(){
         is_in_action_mode=false;
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.menu_videos);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         counter_text_view.setVisibility(View.GONE);
         counter_text_view.setText("0 Items Selected");
         counter=0;
@@ -164,7 +162,6 @@ public class Videos extends AppCompatActivity implements View.OnLongClickListene
         else{
             counter_text_view.setText(counter+"Items Selected");
         }
-
     }
 
     public void launchGalleryIntent() {

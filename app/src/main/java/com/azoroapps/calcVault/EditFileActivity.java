@@ -87,10 +87,7 @@ public class EditFileActivity extends AppCompatActivity {
 
                     }
                 });
-
-
                 builder.create().show();
-
             }
         });
 

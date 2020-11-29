@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -25,7 +24,9 @@ import es.dmoral.toasty.Toasty;
 
 public class VaultScreen extends AppCompatActivity {
 
-    ImageView button_photo, button_videos, button_music, button_recordings, button_VPN, button_files, button_drive, button_settings;
+    ImageView button_photo, button_videos, button_music,
+            button_recordings, button_VPN, button_files,
+            button_drive, button_settings;
     boolean success = true;
     String loc = ".Vault";
     File file = new File(Environment.getExternalStorageDirectory() + "/" + loc);
@@ -54,7 +55,7 @@ public class VaultScreen extends AppCompatActivity {
         //Row 1
         button_photo = findViewById(R.id.ivPhotos);
         button_videos = findViewById(R.id.ivVideos);
-        button_music = findViewById(R.id.ivMusic);
+        //button_music = findViewById(R.id.ivMusic);
         //Row 2 recording,vpn, notes
         button_recordings = findViewById(R.id.ivRecordings);
         button_VPN = findViewById(R.id.ivVPN);
@@ -65,75 +66,50 @@ public class VaultScreen extends AppCompatActivity {
     }
 
     private void initControlListener() {
-        button_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(VaultScreen.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toasty.success(VaultScreen.this, "Authorised", Toast.LENGTH_SHORT).show();
-                    success = file.mkdirs();
-                    if (success) {
-                        Toasty.info(VaultScreen.this, "Vault Created", Toast.LENGTH_SHORT).show();
-                    }
-                    //requestStoragePermission();
+        button_photo.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(VaultScreen.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                success = file.mkdirs();
+                if (success) {
+                    Toasty.info(VaultScreen.this, "Vault Created", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getApplicationContext(), Album.class);
-                intent.putExtra("name","/.Photos/");
-                startActivity(intent);
+                //requestStoragePermission();
             }
+            Intent intent = new Intent(getApplicationContext(), Album.class);
+            intent.putExtra("name","/.Photos/");
+            startActivity(intent);
         });
 
-        button_videos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Videos.class);
-                startActivity(intent);
+        button_videos.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Videos.class);
+            startActivity(intent);
 
-            }
         });
-        button_music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MusicPlayer.class);
-                startActivity(intent);
+        /*utton_music.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MusicPlayer.class);
+            startActivity(intent);
 
-            }
+        });*/
+        button_recordings.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Recordings.class);
+            intent.putExtra("name","Recordings");
+            startActivity(intent);
         });
-        button_recordings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Recordings.class);
-                intent.putExtra("name","Recordings");
-                startActivity(intent);
-            }
-        });
-        button_VPN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), VpnActivity.class);
-                startActivity(intent);
-            }
+        button_VPN.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), VpnActivity.class);
+            startActivity(intent);
         });
 
-        button_files.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NotesActivity.class);
-                startActivity(intent);
-            }
+        button_files.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), NotesActivity.class);
+            startActivity(intent);
         });
-        button_drive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Album.class);
-                startActivity(intent);
-            }
+        button_drive.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Album.class);
+            startActivity(intent);
         });
-        button_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TempActivity.class);
-                startActivity(intent);
-            }
+        button_settings.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
         });
 
     }
@@ -147,8 +123,8 @@ public class VaultScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == (R.id.settings_icon)) {
-            /*Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
         if (item.getItemId() == (R.id.myDrive)) {
             Intent intent = new Intent(this, DriveActivity.class);

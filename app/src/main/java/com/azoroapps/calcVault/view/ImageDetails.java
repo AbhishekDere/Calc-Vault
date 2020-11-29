@@ -5,7 +5,7 @@ import android.net.Uri;
 public class ImageDetails {
     public String name;
     public Uri uri;
-    private boolean isSelected = false;
+    boolean isSelected=false;
 
     public String getName() {
         return name;
@@ -22,12 +22,8 @@ public class ImageDetails {
     public void setUri(Uri uri) {
         this.uri = uri;
     }
-    
+
     public boolean isSelected() {
         return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
     }
 }

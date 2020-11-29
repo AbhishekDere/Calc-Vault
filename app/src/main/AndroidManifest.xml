@@ -26,6 +26,8 @@
         android:roundIcon="@mipmap/lock_logo"
         android:supportsRtl="true"
         android:theme="@style/NormalLight">
+        <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".Tunes" />
         <activity android:name=".FullScreenActivity" />
         <activity android:name=".view.SettingsActivity" />
         <activity
@@ -41,14 +43,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".EditFileActivity" />
         <activity android:name=".EditActivity" />
-        <activity android:name=".AddActivity"
-            />
+        <activity android:name=".AddActivity" />
         <activity android:name=".view.VpnActivity" />
-
         <activity
             android:name=".view.Videos"
-            android:theme="@style/NormalLight.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalLight.NoActionBar" />
         <activity
             android:name=".view.MusicPlayer"
             android:screenOrientation="portrait" />
@@ -71,7 +71,8 @@
         </activity>
         <activity
             android:name=".view.Photos"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalLight.NoActionBar" />
         <activity
             android:name=".view.Album"
             android:label="@string/title_activity_albums" />

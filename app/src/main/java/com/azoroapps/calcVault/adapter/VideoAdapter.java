@@ -39,9 +39,9 @@ import java.util.ArrayList;
 import es.dmoral.toasty.Toasty;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolder> {
+
     Context context;
     ArrayList<VideoDetails> videos;
-    View view;
     Videos vid;
 
     public VideoAdapter(Context context, ArrayList<VideoDetails> videos){
@@ -57,51 +57,49 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        view=layoutInflater.inflate(R.layout.video_list, parent,false);
-        return new myVideoHolder(view,vid);
+        View view=layoutInflater.inflate(R.layout.video_list, parent,false);
+        myVideoHolder mvh= new myVideoHolder(view,vid);
+        return mvh;
     }
+
     @Override
     public void onBindViewHolder(@NonNull myVideoHolder holder, int position) {
         VideoDetails obj = videos.get(position);
         Glide.with(context).load(obj.getUri()).into(holder.icon);
         holder.videoName.setText(obj.getName());
-        holder.view.setBackgroundColor(obj.isSelected() ? Color.CYAN : Color.WHITE);
         //onClicks on very item
         holder.view.setOnClickListener(v -> playVideo(obj.getUri()));
-        holder.more_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(context, holder.more_btn);
-                //inflating menu from xml resource
-                popup.inflate(R.menu.menu_longclickoptions);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @SuppressLint("NonConstantResourceId")
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        File file = new File(obj.getUri().getPath());
-                        switch (item.getItemId()) {
-                            case R.id.option_delete:
-                                    boolean b =file.delete();
-                                    if(b){
-                                        videos.remove(holder.getAdapterPosition());
-                                        notifyItemRemoved(holder.getAdapterPosition());
-                                        Toasty.info(context,"Deleted "+file.getName(),Toasty.LENGTH_LONG).show();
-                                    }
-                                break;
-                            case R.id.option_unhide:
-                                moveFile(file.getParent()+"/", file.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
-                                videos.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                Toasty.success(context,"Video is Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();
-                                break;
-                        }
-                        return false;
+        holder.more_btn.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, holder.more_btn);
+            //inflating menu from xml resource
+            popup.inflate(R.menu.menu_longclickoptions);
+            //adding click listener
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @SuppressLint("NonConstantResourceId")
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    File file = new File(obj.getUri().getPath());
+                    switch (item.getItemId()) {
+                        case R.id.option_delete:
+                                boolean b =file.delete();
+                                if(b){
+                                    videos.remove(holder.getAdapterPosition());
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    Toasty.info(context,"Deleted "+file.getName(),Toasty.LENGTH_LONG).show();
+                                }
+                            break;
+                        case R.id.option_unhide:
+                            moveFile(file.getParent()+"/", file.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
+                            videos.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                            Toasty.success(context,"Video is Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();
+                            break;
                     }
-                });
-                //displaying the popup
-                popup.show();
-            }
+                    return false;
+                }
+            });
+            //displaying the popup
+            popup.show();
         });
 
         if(!vid.is_in_action_mode){
@@ -136,7 +134,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
 
     public void updateAdapter(ArrayList<VideoDetails> list ){
         for(VideoDetails videoDetails:list){
-            //TODO (Remove the Files using
             String path=videoDetails.getUri().getPath();
             File f = new File(path);
             videos.remove(videoDetails);
@@ -157,6 +154,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         notifyDataSetChanged();
     }
 
+    public void shareAdapter(ArrayList<VideoDetails> selection_list) {
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        shareIntent.putExtra(Intent.EXTRA_STREAM,selection_list);
+        shareIntent.setType("video/*");
+        context.startActivity(Intent.createChooser(shareIntent, "Share Videos to.."));
+    }
+
     public static class myVideoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView icon;
         TextView videoName;
@@ -168,11 +174,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
         public myVideoHolder(@NonNull View itemView, Videos v) {
             super(itemView);
             more_btn= itemView.findViewById(R.id.ic_more_btn);
-            view = itemView.findViewById(R.id.video_layout);
+            view = itemView.findViewById(R.id.video_list);
             icon= itemView.findViewById(R.id.video_icon);
             videoName=itemView.findViewById(R.id.videoTitle);
             checkBox=itemView.findViewById(R.id.checkbox_video);
-            this.vid=v;
+            vid=v;
             view.setOnLongClickListener(vid);
             checkBox.setOnClickListener(this);
         }
@@ -183,6 +189,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             vid.prepareSelection(v.getRootView(),getAdapterPosition());
         }
     }
+
     private void moveFile(String inputPath, String inputFile, String outputPath) {
         InputStream in;
         OutputStream out;
@@ -218,4 +225,5 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             Log.e("tag", e.getMessage());
         }
     }
+
 }
