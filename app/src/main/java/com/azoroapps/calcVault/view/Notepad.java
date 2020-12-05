@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.DriveServiceHelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

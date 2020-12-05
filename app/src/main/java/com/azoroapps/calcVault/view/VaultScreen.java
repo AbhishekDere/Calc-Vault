@@ -14,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.azoroapps.calcVault.DriveActivity;
 import com.azoroapps.calcVault.R;
-import com.azoroapps.calcVault.TempActivity;
 
 import java.io.File;
 import java.io.IOException;

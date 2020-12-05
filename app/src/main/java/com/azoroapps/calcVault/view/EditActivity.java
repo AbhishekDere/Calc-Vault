@@ -1,24 +1,21 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.azoroapps.calcVault.adapter.FileAdapter;
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.FileItem;
-import com.azoroapps.calcVault.view.NotesActivity;
 
 import java.io.File;
 

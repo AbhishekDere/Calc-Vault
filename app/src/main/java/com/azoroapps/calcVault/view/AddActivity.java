@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.azoroapps.calcVault.view.NotesActivity;
+import com.azoroapps.calcVault.R;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

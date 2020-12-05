@@ -1,6 +1,5 @@
 package com.azoroapps.calcVault.adapter;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
@@ -15,13 +14,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.azoroapps.calcVault.EditFileActivity;
 import com.azoroapps.calcVault.view.Album;
 import com.azoroapps.calcVault.view.Photos;
 import com.azoroapps.calcVault.R;
@@ -159,14 +156,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
                         alert.setTitle("Rename");
                         final EditText input = new EditText(context);
                         alert.setView(input);
-                        alert.setPositiveButton("OK", (DialogInterface.OnClickListener) (dialog, whichButton) -> {
+                        alert.setPositiveButton("OK", (dialog, whichButton) -> {
                             String srt1 = input.getEditableText().toString();
                             File oldFolder = new File(f1.getPath());
                             File newFolder = new File(f1.getParent(),"."+srt1);
                             boolean success = oldFolder.renameTo(newFolder);
                             if(success){
                                 ((Album)context).finish();
-                                ((Album)context).startActivity(((Album) context).getIntent());
+                                context.startActivity(((Album) context).getIntent());
                                 Toasty.success(context,"Folder Renamed, Go Back and come to see Changes",Toasty.LENGTH_SHORT).show();
                             }
                         });

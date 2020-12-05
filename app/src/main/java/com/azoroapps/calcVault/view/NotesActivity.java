@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.azoroapps.calcVault.AddActivity;
-import com.azoroapps.calcVault.EditActivity;
-import com.azoroapps.calcVault.MyAdapter;
+import com.azoroapps.calcVault.adapter.MyAdapter;
 import com.azoroapps.calcVault.R;
 
 import java.util.ArrayList;

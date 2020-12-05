@@ -9,25 +9,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+<LinearLayout
+    android:id="@+id/view_change_password"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-        <TextView
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="25sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click Here to Change Password"
+        android:textSize="10sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="10sp"
+        android:background="#46541d"/>
+
+</LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/eraseVault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title 1"
-            android:textSize="30sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="title 1"
-            android:textSize="20sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/black"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="title 1"
-            android:textSize="30sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete Vault"
+                android:textSize="25sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click Here to Delete all Files\n This cannot be Undone"
+                android:textSize="10sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10sp"
+                android:background="#46541d"/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>

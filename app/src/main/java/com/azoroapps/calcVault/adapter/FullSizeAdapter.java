@@ -10,12 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.azoroapps.calcVault.FullScreenActivity;
 import com.azoroapps.calcVault.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.util.ArrayList;
 
 public class FullSizeAdapter extends PagerAdapter {
     Context context;

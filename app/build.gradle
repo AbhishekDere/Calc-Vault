@@ -101,4 +101,5 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.2.0'
     implementation project(path: ':vpnLib')
     //Music PLayer
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 }

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import es.dmoral.toasty.Toasty;
 import ir.mahdi.mzip.zip.ZipArchive;
-import static com.azoroapps.calcVault.NewUser.SHARED_PREFS;
+import static com.azoroapps.calcVault.view.NewUser.SHARED_PREFS;
 
 public class TempActivity extends AppCompatActivity{
     String loc = ".Vault";

@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.adapter.FullSizeAdapter;
 
 import java.util.ArrayList;

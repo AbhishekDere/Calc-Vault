@@ -3,7 +3,6 @@ package com.azoroapps.calcVault.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.azoroapps.calcVault.FullScreenActivity;
+import com.azoroapps.calcVault.view.FullScreenActivity;
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.view.ImageDetails;
 import com.azoroapps.calcVault.view.Photos;

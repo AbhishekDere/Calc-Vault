@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.FileItem;
 
 import java.util.List;

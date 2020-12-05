@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +11,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.PrefManager;
 
 import es.dmoral.toasty.Toasty;

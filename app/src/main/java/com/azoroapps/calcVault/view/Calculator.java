@@ -17,7 +17,7 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import es.dmoral.toasty.Toasty;
 
-import static com.azoroapps.calcVault.NewUser.SHARED_PREFS;
+import static com.azoroapps.calcVault.view.NewUser.SHARED_PREFS;
 
 public class Calculator extends AppCompatActivity {
     TextView button0,button1, button2, button3, button4, button5, button6, button7, button8, button9, tvDot, buttonAdd,

@@ -1,4 +1,4 @@
-package com.azoroapps.calcVault;
+package com.azoroapps.calcVault.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azoroapps.calcVault.R;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import static com.azoroapps.calcVault.EditActivity.KEY_NAME;
+import static com.azoroapps.calcVault.view.EditActivity.KEY_NAME;
 public class EditFileActivity extends AppCompatActivity {
 
     String strTxtBeforeEdit;

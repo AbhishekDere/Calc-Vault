@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.azoroapps.calcVault.AddActivity"
+    tools:context="com.azoroapps.calcVault.view.AddActivity"
     >
 
     <LinearLayout
@@ -35,7 +35,7 @@
 
     </LinearLayout>
 
-    <com.azoroapps.calcVault.Notepad
+    <com.azoroapps.calcVault.view.Notepad
         android:id="@+id/edtNotepad"
         android:layout_width="0dp"
         android:layout_height="430dp"
