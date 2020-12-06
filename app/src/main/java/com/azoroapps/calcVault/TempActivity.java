@@ -6,7 +6,16 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.api.client.http.FileContent;
+
 import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import es.dmoral.toasty.Toasty;
 import ir.mahdi.mzip.zip.ZipArchive;
 import static com.azoroapps.calcVault.view.NewUser.SHARED_PREFS;
@@ -16,6 +25,8 @@ public class TempActivity extends AppCompatActivity{
     File file = new File(Environment.getExternalStorageDirectory() + "/" + loc+"/");
     File destination = new File(Environment.getExternalStorageDirectory().getPath()+"/AndroidFiles.zip");
     Button button;
+
+    private final Executor mExecutor= Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,4 +52,11 @@ public class TempActivity extends AppCompatActivity{
         */
         Toasty.success(this,"Password Saved, Re-Login",Toasty.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+
 }

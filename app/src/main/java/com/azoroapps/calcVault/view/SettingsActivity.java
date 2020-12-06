@@ -46,8 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
                         finish();
                         System.exit(0);
                     })
-                    .setCancelButton("Cancel", sDialog -> {
-                    })
+                    .setCancelButton("Cancel", SweetAlertDialog::dismissWithAnimation)
                     .show();
         });
     }

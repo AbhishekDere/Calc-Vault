@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.azoroapps.calcVault.MainActivity;
 import com.azoroapps.calcVault.R;
 
 import java.io.File;
@@ -106,7 +107,7 @@ public class VaultScreen extends AppCompatActivity {
             startActivity(intent);
         });
         button_settings.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         });
 
