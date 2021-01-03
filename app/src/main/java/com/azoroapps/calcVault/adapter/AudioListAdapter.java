@@ -1,19 +1,24 @@
 package com.azoroapps.calcVault.adapter;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.TimeAgo;
+import com.azoroapps.calcVault.view.Album;
+import com.azoroapps.calcVault.view.RecordingListFragment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,6 +60,12 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
         Collections.addAll(musicFiles, allFiles);
     }
 
+
+    @Override
+    public int getItemCount() {
+        return allFiles.length;
+    }
+
     private void moveFile(String inputPath, String inputFile, String outputPath) {
         InputStream in;
         OutputStream out;
@@ -82,6 +93,8 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
             out.close();
             // delete the original file
             boolean l = new File(inputPath + inputFile).delete();
+            if(l)
+                Toasty.success(context,"Successful",Toasty.LENGTH_SHORT).show();
         }
         catch (FileNotFoundException f) {
             Log.e("File", f.getMessage());
@@ -89,11 +102,6 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
         catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return allFiles.length;
     }
 
     public interface onItemListClick {
@@ -114,11 +122,38 @@ public class AudioListAdapter extends RecyclerView.Adapter<AudioListAdapter.Audi
             list_title = itemView.findViewById(R.id.list_title);
             list_date = itemView.findViewById(R.id.list_date);
             itemView.setOnClickListener(this);
+            musicPlayerLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu popup = new PopupMenu(context, musicPlayerLayout);
+                    popup.inflate(R.menu.recording_long_click);
+
+                    popup.setOnMenuItemClickListener(item -> {
+                        if (item.getItemId() == R.id.recording_delete) {
+                            boolean b = allFiles[getAdapterPosition()].delete();
+                            if (b) {
+                                Toasty.info(context, "Deleted " + allFiles[getAdapterPosition()].getName(), Toasty.LENGTH_LONG).show();
+                                ((FragmentActivity)context).finish();
+                                context.startActivity(((FragmentActivity) context).getIntent());
+                                //notifyDataSetChanged();
+                                musicFiles.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+                            }
+                        }
+
+                        return false;
+                    });
+                    popup.show();
+                    return true;
+                }
+            });
 
         }
         @Override
         public void onClick(View v) {
             onItemListClick.onClickListener(allFiles[getAdapterPosition()], getAdapterPosition());
         }
+
+
     }
 }

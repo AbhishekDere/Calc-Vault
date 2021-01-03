@@ -11,8 +11,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.PrefManager;
@@ -60,7 +62,19 @@ public class NewUser extends AppCompatActivity {
         tvDot.setOnClickListener(v -> appendOnExpression("."));
 
         //Equal Function
-        tvEqual.setOnClickListener(v -> showDialogue());
+        tvEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pass=tvExpression.getText().toString();
+                if(!pass.equals("00000000")||tvExpression.getText().length()<=4){
+                    showDialogue();
+                }
+                else{
+                    Toasty.error(NewUser.this,"Please Choose a Strong Password",Toasty.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         //Additional
         buttonClear.setOnClickListener(v -> {
             tvExpression.setText("");

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -60,7 +61,8 @@ public class VaultScreen extends AppCompatActivity {
         button_VPN = findViewById(R.id.ivVPN);
         //Row 3
         button_files = findViewById(R.id.ivDocuments);
-        button_drive = findViewById(R.id.ivDrive);
+        //button_drive = findViewById(R.id.ivDrive);
+        //button_drive.setVisibility(View.GONE);
         button_settings = findViewById(R.id.ivSettings);
     }
 
@@ -83,7 +85,7 @@ public class VaultScreen extends AppCompatActivity {
             startActivity(intent);
 
         });
-        /*utton_music.setOnClickListener(v -> {
+        /*button_music.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), MusicPlayer.class);
             startActivity(intent);
 
@@ -102,12 +104,12 @@ public class VaultScreen extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), NotesActivity.class);
             startActivity(intent);
         });
-        button_drive.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), Album.class);
-            startActivity(intent);
-        });
+//        button_drive.setOnClickListener(v -> {
+//            Intent intent = new Intent(getApplicationContext(), Album.class);
+//            startActivity(intent);
+//        });
         button_settings.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
         });
 

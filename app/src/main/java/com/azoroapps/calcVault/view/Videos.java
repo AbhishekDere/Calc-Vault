@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +49,7 @@ public class Videos extends AppCompatActivity implements View.OnLongClickListene
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public boolean is_in_action_mode=false;
     TextView counter_text_view;
+
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     VideoAdapter videoAdapter;
@@ -120,9 +122,9 @@ public class Videos extends AppCompatActivity implements View.OnLongClickListene
         }
         else if (item.getItemId()==R.id.video_share){
             is_in_action_mode=false;
+            clearActionMode();
             videoAdapter.shareAdapter(selection_list);
             clearActionMode();
-
         }
         else if(item.getItemId()==android.R.id.home){
             clearActionMode();

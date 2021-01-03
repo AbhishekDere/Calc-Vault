@@ -4,35 +4,56 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-<LinearLayout
-    android:id="@+id/view_change_password"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/view_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textSize="25sp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Click Here to Change Password"
-        android:textSize="10sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="10sp"
-        android:background="#46541d"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textSize="25sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click Here to Change Password"
+                android:textSize="10sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10sp"
+                android:background="#46541d"/>
 
-</LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/vaultBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Backup and Restore"
+                android:textSize="25sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Backup/Restore Your Vault"
+                android:textSize="10sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10sp"
+                android:background="#46541d"/>
+
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/eraseVault"
             android:layout_width="match_parent"
@@ -54,11 +75,7 @@
                 android:layout_height="3dp"
                 android:layout_marginTop="10sp"
                 android:background="#46541d"/>
-
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

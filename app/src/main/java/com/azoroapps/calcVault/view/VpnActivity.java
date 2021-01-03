@@ -109,16 +109,29 @@ public class VpnActivity extends AppCompatActivity implements NavItemClickListen
 
         servers.add(new Server("Korea",
                 Utils.getImgURL(R.drawable.korea),
-                "vpngate_vpn252079184.opengw.net_udp_1482.ovpn",
+                "korea.ovpn",
                 "vpn",
                 "vpn"
         ));
         servers.add(new Server("Japan",
                 Utils.getImgURL(R.drawable.japan),
-                "vpngate_vpn319831427.opengw.net_udp_1248.ovpn",
+                "japan.ovpn",
                 "vpn",
                 "vpn"
         ));
+        servers.add(new Server("USA",
+                Utils.getImgURL(R.drawable.usa_flag),
+                "usa.ovpn",
+                "vpn",
+                "vpn"
+        ));
+        servers.add(new Server("France",
+                Utils.getImgURL(R.drawable.france_flag),
+                "france.ovpn",
+                "vpnbook",
+                "3x58UVx"
+        ));
+
 
         return servers;
     }

@@ -1,5 +1,6 @@
 package com.azoroapps.calcVault.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -177,7 +178,7 @@ public class DriveActivity extends AppCompatActivity {
             Log.d(TAG, "Creating a file.");
 
             mDriveServiceHelper.createFile()
-                    .addOnSuccessListener(fileId -> readFile(fileId))
+                    .addOnSuccessListener(this::readFile)
                     .addOnFailureListener(exception ->
                             Log.e(TAG, "Couldn't create file.", exception));
         }
@@ -224,6 +225,7 @@ public class DriveActivity extends AppCompatActivity {
     /**
      * Queries the Drive REST API for files visible to this app and lists them in the content view.
      */
+    @SuppressLint("SetTextI18n")
     private void query() {
         if (mDriveServiceHelper != null) {
             Log.d(TAG, "Querying for files.");

@@ -3,6 +3,7 @@ package com.azoroapps.calcVault.view;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.azoroapps.calcVault.MainActivity;
 import com.azoroapps.calcVault.R;
 
 import java.io.File;
@@ -25,7 +27,7 @@ import static com.azoroapps.calcVault.view.NewUser.SHARED_PREFS;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    LinearLayout changePassword,eraseVault;
+    LinearLayout changePassword,eraseVault,backupVault;
     String newPass;
     File file = new File(Environment.getExternalStorageDirectory() + "/.Vault");
     @Override
@@ -34,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         changePassword = findViewById(R.id.view_change_password);
         eraseVault=findViewById(R.id.eraseVault);
+        backupVault=findViewById(R.id.vaultBackup);
+        backupVault.setOnClickListener(v->backup());
         changePassword.setOnClickListener(v -> changePassword());
         eraseVault.setOnClickListener(v -> {
             new SweetAlertDialog(SettingsActivity.this, SweetAlertDialog.WARNING_TYPE)
@@ -50,6 +54,13 @@ public class SettingsActivity extends AppCompatActivity {
                     .show();
         });
     }
+
+    private void backup() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     void deleteAllFiles(File dir) {
         Log.d("DeleteRecursive", "DELETEPREVIOUS TOP" + dir.getPath());
         if (dir.isDirectory())
@@ -96,18 +107,14 @@ public class SettingsActivity extends AppCompatActivity {
                             // get user input and set it to result
                             // edit text
                             newPass=userInput.getText().toString();
-                            if(newPass.length()>3&&newPass.length()<9){
+                            if(newPass.length()>3&&newPass.length()<9&&!newPass.equals("00000000")){
                                 editor.putString("password", newPass);
                                 editor.apply();
                                 Toasty.success(this,"Password Changed, Please Re-Login to see the Effect",Toasty.LENGTH_SHORT).show();
                             }
-                            if(newPass.equals("0000")){
-                                Toasty.error(this,"Password cannot be 0000",Toasty.LENGTH_SHORT).show();
-                            }
                             else{
                                 Toasty.error(this,"Password should be a number between\n 4-8 Digits",Toasty.LENGTH_LONG).show();
                             }
-
                         })
                 .setNegativeButton("Cancel",
                         (dialog, id) -> dialog.cancel());

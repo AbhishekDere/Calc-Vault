@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/SyncWithDrive"
+    android:background="#e3f2fd">
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload PDF File"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        />
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="5sp"
-        android:layout_below="@+id/SyncWithDrive"
-        android:layout_marginTop="100sp"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/googleUserPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="200sp" />
+        <TextView
+            android:id="@+id/googleUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/your_name"
+            android:textSize="30sp"/>
+        <TextView
+            android:id="@+id/UserID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Your Password for Your Zip File: \n"
+            android:textStyle="bold"/>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/SyncWithDrive"
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:layout_marginHorizontal="40sp"
+            android:text="Backup the Vault"
+            />
+        <Button
+            android:id="@+id/RestoreDrive"
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:layout_marginHorizontal="40sp"
+            android:layout_marginTop="20sp"
+            android:text="Restore the Vault \n (Same Google Account \nneeds to be present)"
+            />
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:layout_marginHorizontal="40sp"
+            android:layout_marginTop="20sp"
+            android:text="Logout"
+            />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="5sp"
+            android:layout_below="@+id/SyncWithDrive"
+            android:layout_marginTop="100sp"/>
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

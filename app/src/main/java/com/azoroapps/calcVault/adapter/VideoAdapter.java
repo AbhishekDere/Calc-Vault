@@ -2,11 +2,11 @@
 package com.azoroapps.calcVault.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -34,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
@@ -43,16 +43,20 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
     Context context;
     ArrayList<VideoDetails> videos;
     Videos vid;
-
+    ProgressDialog progressDialog;
+    VideoDetails obj;
+    ArrayList<Uri> videoUris=new ArrayList<>();
     public VideoAdapter(Context context, ArrayList<VideoDetails> videos){
         this.context=context;
         this.videos=videos;
         vid=(Videos)context;
+
     }
 
     @NonNull
     @Override
     public myVideoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        progressDialog = new ProgressDialog(context);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
@@ -64,7 +68,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
 
     @Override
     public void onBindViewHolder(@NonNull myVideoHolder holder, int position) {
-        VideoDetails obj = videos.get(position);
+
+        obj = videos.get(position);
         Glide.with(context).load(obj.getUri()).into(holder.icon);
         holder.videoName.setText(obj.getName());
         //onClicks on very item
@@ -74,29 +79,25 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             //inflating menu from xml resource
             popup.inflate(R.menu.menu_longclickoptions);
             //adding click listener
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @SuppressLint("NonConstantResourceId")
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    File file = new File(obj.getUri().getPath());
-                    switch (item.getItemId()) {
-                        case R.id.option_delete:
-                                boolean b =file.delete();
-                                if(b){
-                                    videos.remove(holder.getAdapterPosition());
-                                    notifyItemRemoved(holder.getAdapterPosition());
-                                    Toasty.info(context,"Deleted "+file.getName(),Toasty.LENGTH_LONG).show();
-                                }
-                            break;
-                        case R.id.option_unhide:
-                            moveFile(file.getParent()+"/", file.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
-                            videos.remove(holder.getAdapterPosition());
-                            notifyItemRemoved(holder.getAdapterPosition());
-                            Toasty.success(context,"Video is Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();
-                            break;
-                    }
-                    return false;
+            popup.setOnMenuItemClickListener(item -> {
+                File file = new File(obj.getUri().getPath());
+                switch (item.getItemId()) {
+                    case R.id.option_delete:
+                            boolean b =file.delete();
+                            if(b){
+                                videos.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                Toasty.info(context,"Deleted "+file.getName(),Toasty.LENGTH_LONG).show();
+                            }
+                        break;
+                    case R.id.option_unhide:
+                        new MyTask(VideoAdapter.this).execute();
+                        videos.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        Toasty.success(context,"Video is Unhidden Successfully\n You can find it in /DCIM/Videos/ folder ",Toasty.LENGTH_LONG).show();
+                        break;
                 }
+                return false;
             });
             //displaying the popup
             popup.show();
@@ -111,12 +112,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             holder.checkBox.setChecked(false);
             holder.more_btn.setVisibility(View.GONE);
         }
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vid.prepareSelection(v,position);
-            }
-        });
+        holder.checkBox.setOnClickListener(v -> vid.prepareSelection(v,position));
     }
 
     protected void playVideo(Uri fileUri){
@@ -156,11 +152,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
 
     public void shareAdapter(ArrayList<VideoDetails> selection_list) {
 
+        for(VideoDetails videoDetails:selection_list){
+            Uri uri =videoDetails.getUri();
+            videoUris.add(uri);
+        }
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-        shareIntent.putExtra(Intent.EXTRA_STREAM,selection_list);
+        shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, videoUris);
         shareIntent.setType("video/*");
-        context.startActivity(Intent.createChooser(shareIntent, "Share Videos to.."));
+        context.startActivity(shareIntent);
     }
 
     public static class myVideoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -225,5 +225,33 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.myVideoHolde
             Log.e("tag", e.getMessage());
         }
     }
+    static class MyTask extends AsyncTask<Integer, Integer, String>{
+        WeakReference<VideoAdapter> activityReference;
+        MyTask(VideoAdapter context) {
+            activityReference = new WeakReference<>(context);
+        }
 
+        @Override
+        protected void onPreExecute() {
+            activityReference.get().progressDialog.setMessage("Creating a Protected Zip File");
+            activityReference.get().progressDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            File file = new File(activityReference.get().obj.getUri().getPath());
+            activityReference.get().moveFile(file.getParent()+"/", file.getName(),Environment.getExternalStorageDirectory().getPath()+"/DCIM/Videos/");
+            return "File Moved Back";
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            if (activityReference.get().progressDialog.isShowing()) {
+                activityReference.get().progressDialog.dismiss();
+
+            }
+
+
+        }
+    }
 }

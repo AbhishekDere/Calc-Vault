@@ -18,8 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.azoroapps.calcVault.R;
 import com.azoroapps.calcVault.utilities.PrefManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.SignInButton;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -28,10 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
 
-    //Sign In stuff
-    SignInButton signInButton;
-    GoogleSignInClient mGoogleSignInClient;
-    int RC_SIGN_IN=0;
+
 
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {

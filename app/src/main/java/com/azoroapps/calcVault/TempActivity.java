@@ -42,14 +42,7 @@ public class TempActivity extends AppCompatActivity{
                 ZipArchive.zip(file.getPath(),destination.getPath(),sharedPreferences.getString("password", ""));
             }
         });
-        /*button.setOnClickListener(v -> {
-            Toast.makeText(TempActivity.this, "clicked on button", Toast.LENGTH_LONG).show();
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("password", "5555");
-            editor.apply();
-        });
-        */
+
         Toasty.success(this,"Password Saved, Re-Login",Toasty.LENGTH_SHORT).show();
     }
 
