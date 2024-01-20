@@ -1,5 +1,5 @@
-# Awesome Android App
-
+# Calc-Vault 
+# Page under Construction
 <p align="center">
   <img src="https://your-app-logo-url.png" alt="Awesome Android App Logo" width="200">
 </p>
@@ -9,7 +9,7 @@
 
 ## Overview
 
-Awesome Android App is a feature-rich mobile application designed to [brief description of your app's purpose]. With a sleek and intuitive interface, it provides users with [key functionalities and benefits].
+Calc-Vault Android App is a feature-rich mobile application designed to hide your personal media from anyone using the device. With a sleek and intuitive interface, it provides users with multiple features such as albums, videos, voice notes, notepad, VPN, and much more.
 
 ## Features
 
