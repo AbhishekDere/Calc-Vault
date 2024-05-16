@@ -1,5 +1,7 @@
-# Calc-Vault 
-# Single Application to Hide Your all Media from the outside world
+# Calc-Vault
+
+Calc-Vault is a single application designed to hide all your media from prying eyes. It disguises itself as a calculator, ensuring your privacy and security. Once set up, entering 0/yourPassword opens your vault, where you can hide, view, and delete photos, videos, audio recordings, notepad entries, and even access a VPN for added security. Protect your personal media with Calc-Vault.
+
 <p align="center">
   <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/c3345f51-f2aa-4482-a87a-c7fb0663962e" alt="Awesome Android App Logo" width="200">
 </p>
@@ -13,7 +15,7 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
 
 ## Features
 
-- **Albums:** Organize your photos and images in a secure, private space. Create multiple albums to categorize your media for easy access. View your photos with a sleek and intuitive interface. Keep your memories safe from prying eyes
+- **Albums:** Organize your photos and images in a secure, private space. Create multiple albums to categorize your media for easy access. View your photos with a sleek and intuitive interface. Keep your memories safe from prying eyes.
 - **Videos:** Store your videos securely, ensuring they are only accessible to you. Watch your favorite videos without worrying about privacy. Easily manage and categorize your video collection. Enjoy your videos with a user-friendly interface.
 - **Voice Notes:** Record and store voice notes for personal or professional use. Keep your recorded thoughts and ideas safe and organized. Access your voice notes anytime, anywhere. Enjoy the convenience of a built-in voice recorder.
 - **Notepad:** Jot down important information securely with the built-in notepad feature. Keep your notes organized with categories and tags. Access your notes quickly and easily. Enjoy the simplicity and convenience of a digital notepad.
@@ -30,12 +32,6 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
     <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/305254b8-ca5b-4815-bbdd-bccce52716b3" alt="Screenshot 2" style="margin: 10px; max-width: 50%; height: auto;"/>
     <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/edc93da7-1415-41f9-b899-f3f979898d6b" alt="imageVPN" style="margin: 10px; max-width: 50%; height: auto;"/>
 </div>
-
-
-
-
-
-
 
 ## Installation
 
