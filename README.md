@@ -21,6 +21,16 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
 - **Notepad:** Jot down important information securely with the built-in notepad feature. Keep your notes organized with categories and tags. Access your notes quickly and easily. Enjoy the simplicity and convenience of a digital notepad.
 - **VPN:** Protect your online privacy and security with the built-in VPN feature. Access geo-restricted content with ease. Browse the web anonymously and securely. Enjoy a fast and reliable VPN service integrated into your app.
 
+## Video Demonstration
+
+Watch the Calc-Vault in action: [YouTube Video](https://youtu.be/duhNRmWPHbA)
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/AbhishekDere/Calc-Vault.git`
+2. Open the project in Android Studio.
+3. Build and run the app on your Android device or emulator.
+
 ## Screenshots
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap;">
@@ -33,8 +43,3 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
     <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/edc93da7-1415-41f9-b899-f3f979898d6b" alt="imageVPN" style="margin: 10px; max-width: 50%; height: auto;"/>
 </div>
 
-## Installation
-
-1. Clone the repository: `git clone https://github.com/AbhishekDere/Calc-Vault.git`
-2. Open the project in Android Studio.
-3. Build and run the app on your Android device or emulator.
