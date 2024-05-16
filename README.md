@@ -1,7 +1,7 @@
 # Calc-Vault 
-# Page under Construction
+# Single Application to Hide Your all Media from the outside world
 <p align="center">
-  <img src="https://your-app-logo-url.png" alt="Awesome Android App Logo" width="200">
+  <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/c3345f51-f2aa-4482-a87a-c7fb0663962e" alt="Awesome Android App Logo" width="200">
 </p>
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -13,20 +13,25 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
 
 ## Features
 
-- **Feature 1:** Describe feature 1.
-- **Feature 2:** Describe feature 2.
-- **Feature 3:** Describe feature 3.
-- ...
+- **Albums:** Organize your photos and images in a secure, private space. Create multiple albums to categorize your media for easy access. View your photos with a sleek and intuitive interface. Keep your memories safe from prying eyes
+- **Videos:** Store your videos securely, ensuring they are only accessible to you. Watch your favorite videos without worrying about privacy. Easily manage and categorize your video collection. Enjoy your videos with a user-friendly interface.
+- **Voice Notes:** Record and store voice notes for personal or professional use. Keep your recorded thoughts and ideas safe and organized. Access your voice notes anytime, anywhere. Enjoy the convenience of a built-in voice recorder.
+- **Notepad:** Jot down important information securely with the built-in notepad feature. Keep your notes organized with categories and tags. Access your notes quickly and easily. Enjoy the simplicity and convenience of a digital notepad.
+- **VPN:** Protect your online privacy and security with the built-in VPN feature. Access geo-restricted content with ease. Browse the web anonymously and securely. Enjoy a fast and reliable VPN service integrated into your app.
 
 ## Screenshots
-Open the App as a Calculator (Desguise!)
-![image](https://github.com/AbhishekDere/Calc-Vault/assets/44259614/eda91015-9e40-4942-955a-c087348c02b3)
 
-![Screenshot 1](https://github.com/AbhishekDere/Calc-Vault/assets/44259614/e7f3de6e-efd8-49b9-a5cd-33bd74f445d6)
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+    <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/e7f3de6e-efd8-49b9-a5cd-33bd74f445d6" alt="Screenshot 1" style="margin: 10px; max-width: 45%; height: auto;"/>
+    <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/eda91015-9e40-4942-955a-c087348c02b3" alt="image" style="margin: 10px; max-width: 45%; height: auto;"/>
+</div>
 
-![Screenshot 2](https://github.com/AbhishekDere/Calc-Vault/assets/44259614/305254b8-ca5b-4815-bbdd-bccce52716b3)
+<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+    <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/305254b8-ca5b-4815-bbdd-bccce52716b3" alt="Screenshot 2" style="margin: 10px; max-width: 45%; height: auto;"/>
+    <img src="https://github.com/AbhishekDere/Calc-Vault/assets/44259614/edc93da7-1415-41f9-b899-f3f979898d6b" alt="imageVPN" style="margin: 10px; max-width: 45%; height: auto;"/>
+</div>
 
-![imageVPN](https://github.com/AbhishekDere/Calc-Vault/assets/44259614/edc93da7-1415-41f9-b899-f3f979898d6b)
+
 
 
 
