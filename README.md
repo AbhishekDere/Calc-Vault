@@ -20,7 +20,8 @@ Calc-Vault Android App is a feature-rich mobile application designed to hide you
 
 ## Screenshots
 
-![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 1](![image](https://github.com/AbhishekDere/Calc-Vault/assets/44259614/e7f3de6e-efd8-49b9-a5cd-33bd74f445d6)
+)
 ![Screenshot 2](screenshots/screenshot2.png)
 ![Screenshot 3](screenshots/screenshot3.png)
 
